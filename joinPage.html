@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입 화면</title>
+  <style>
+    body {
+      background-color: #eee;
+    }
+
+    .container {
+      width: 850px; height: 850px;
+
+      margin: 0 auto;
+      margin-top: 10vh;
+      padding: 50px;
+
+      text-align: center;
+
+      border-radius: 80px;
+      box-shadow: 0px 50px 10px rgba(0, 0, 0, 0.3);
+
+      box-sizing: border-box;
+
+      background-color: white;
+    }
+
+    header {
+      width: 400px; height: 100px;
+      background-color: #ddd;
+      margin: 0 auto;
+      margin-bottom: 50px;
+    }
+      header > h1 { line-height: 100px; }
+
+    section {
+      width: 460px; height: 525px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+      section input {
+          width: 450px; height: 70px;
+          margin-bottom: 15px;
+
+          border-radius: 10px;
+          border: none;
+
+          background-color: #D8D8D8;
+
+          float: left;
+      }
+        input#id {
+          width: 370px;
+          margin-right: 10px;
+        }
+
+      section button {
+        width: 70px; height: 70px;
+        display: inline-block;
+
+        border-radius: 10px;
+        border: none;
+
+        padding: 15px;
+        box-sizing: border-box;
+
+        box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+        background-color: #D8D8D8;
+      }
+
+        input[type="submit"] {
+          margin-top: 35px;
+          box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+        }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TMI 공유기</h1>
+    </header>
+
+    <section>
+      <form action="#" method="POST">
+        <input type="text" name="id" id="id" placeholder="아이디" required> <button>중복 확인</button>
+        <input type="password" name="passwd" id="passwd" placeholder="비밀번호" required>
+        <input type="password" name="passwd_chk" id="passwd_chk" placeholder="비밀번호 확인" required>
+        <input type="text" name="name" id="name" placeholder="닉네임" required>
+        <input type="submit" value="회원가입">
+      </form>
+    </section>
+  </div>
+</body>
+</html>

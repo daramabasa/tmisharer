@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<title>프로필 화면</title>
+    <style>
+        body { background-color: #eee; }
+        .container{
+            width: 850px; height: 850px;
+
+            margin: 0 auto; margin-top: 10vh;
+            padding: 35px;
+            box-sizing: border-box;
+
+            text-align: center;
+
+            border-radius: 80px;
+            box-shadow: 0px 50px 10px rgba(0,0,0,0.3);
+
+            background-color: white;
+        }
+        .profilesection{
+            width: 100%; height: 390px;
+        }
+
+            .top{
+                width: 100%; height: 250px;
+                position: relative;
+            }
+                .profileimg{
+                    width:250px; height:250px;
+
+                    margin: 0 auto;
+                    margin-bottom: 10px;
+                    border-radius: 150px;
+
+                    background-color: #ddd;
+                    cursor: pointer;
+                }
+                .btn{
+                    width: 100px; height: 40px;
+
+                    border-radius: 10px;
+                    border: none;
+                    box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+                    background-color: #D8D8D8;
+
+                    position: absolute;
+                    right: 10px; top: 15px;
+
+                    cursor: pointer;
+                } 
+                    .btn:active { box-shadow: none; }
+                    #logout { display: none; }
+        
+
+        .profileid{
+            width:300px; height:80px;  
+            
+            margin: 0 auto;
+            margin-top: 10px;
+
+            line-height: 80px;
+            
+            background-color: #ddd;
+        }
+
+        .short{
+            width: 400px; height: 40px;
+            margin: 0 auto;
+            margin-top: 5px;
+
+            line-height: 40px;
+            
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+        .resultsection{
+            width: 100%;
+            
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+            .game{
+                width: 250px; height: 150px;
+                margin: 5px;
+                
+                display: flex;
+                flex-flow: column wrap;
+                justify-content: center;
+                align-items: center;
+
+                background-color: #ddd;
+                cursor: pointer;
+            }
+                .game h2, .game h4 { padding: 0; margin: 0;}
+            
+        .share{
+            width: 300px; height: 70px;
+            
+            margin: 0 auto;
+            margin-top: 10px;
+
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+
+            background-color: #D8D8D8;
+            cursor: pointer;
+        }
+            .share:active { box-shadow: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="profilesection">
+        <div class="top">
+            <div class="profileimg">
+            </div>
+            <button class="btn" id="login" onclick="location.href='loginPage.html'">로그인</button>
+            <button class="btn" id="logout">로그아웃</button>
+        </div>
+        <div class="profileid">
+            ID ExampleID
+        </div>
+        <div class="short">
+            #한줄소개#ExampleShortDescriptionOfMine
+        </div>
+    </div>
+    <div class="resultsection">
+        <div class="game" id="foodGame">
+            <h2>#Example</h2>
+            <h4>#textMessage</h4>
+        </div>
+        <div class="game" id="placeGame">
+            <h2>#Example</h2>
+            <h4>#textMessage</h4>
+        </div>
+        <div class="game" id="animalGame">
+            <h2>#Example</h2>
+            <h4>#textMessage</h4>
+        </div>
+        <div class="game" id="activeGame">
+            <h2>#Example</h2>
+            <h4>#textMessage</h4>
+        </div>
+        <div class="game" id="dislikeGame">
+            <h2>#Example</h2>
+            <h4>#textMessage</h4>
+        </div>
+    </div>
+    <button class="share">친구에게 공유하기</button>
+</div>
+</body>
+<script>
+    let foodGame = document.querySelector("#foodGame");
+    let placeGame = document.querySelector("#placeGame");
+    let animalGame = document.querySelector("#animalGame");
+    let activeGame = document.querySelector("#activeGame");
+    let dislikeGame = document.querySelector("#dislikeGame");
+    
+    foodGame.addEventListener('click', function(){
+        location.href="gamePage.html";
+    });
+    
+    placeGame.addEventListener('click', function(){
+        location.href="gamePage.html";
+    });
+    
+    animalGame.addEventListener('click', function(){
+        location.href="gamePage.html";
+    });
+    
+    activeGame.addEventListener('click', function(){
+        location.href="gamePage.html";
+    });
+    
+    dislikeGame.addEventListener('click', function(){
+        location.href="gamePage.html";
+    });
+</script>
+</html>
