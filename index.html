@@ -87,15 +87,29 @@
                 width: 250px; height: 150px;
                 margin: 5px;
                 
+                position: relative;
+
                 display: flex;
                 flex-flow: column wrap;
                 justify-content: center;
                 align-items: center;
 
+                border: 1px solid black;
+                box-sizing: border-box;
+
                 background-color: #ddd;
                 cursor: pointer;
             }
-                .game h2, .game h4 { padding: 0; margin: 0;}
+                .game::before{
+                    content: "";
+                    opacity: 0.5;
+
+                    position: absolute;
+                    top: 0px; right: 0px; left: 0px; bottom: 0px;
+
+                    background-color: black;
+                }
+                .game h2, .game h4 { padding: 0; margin: 0; color: white; position: relative; }
             
         .share{
             width: 300px; height: 70px;
@@ -133,7 +147,7 @@
         </div>
     </div>
     <div class="resultsection">
-        <div class="game" id="foodGame">
+        <div class="game" id="likeGame">
             <h2>#Example</h2>
             <h4>#textMessage</h4>
         </div>
@@ -159,30 +173,63 @@
 </div>
 </body>
 <script>
-    let foodGame = document.querySelector("#foodGame");
+    let likeGame = document.querySelector("#likeGame");
     let placeGame = document.querySelector("#placeGame");
     let animalGame = document.querySelector("#animalGame");
     let activeGame = document.querySelector("#activeGame");
     let dislikeGame = document.querySelector("#dislikeGame");
     
-    foodGame.addEventListener('click', function(){
-        location.href="gamePage.html";
+    likeGame.addEventListener('click', function(){
+        location.href="game01Page.html";
     });
     
     placeGame.addEventListener('click', function(){
-        location.href="gamePage.html";
+        location.href="game02Page.html";
     });
     
     animalGame.addEventListener('click', function(){
-        location.href="gamePage.html";
+        location.href="game03Page.html";
     });
     
     activeGame.addEventListener('click', function(){
-        location.href="gamePage.html";
+        location.href="game04Page.html";
     });
     
     dislikeGame.addEventListener('click', function(){
-        location.href="gamePage.html";
+        location.href="game05Page.html";
     });
+
+    var getCookie = function(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
+        return value? value[2] : null;  
+    };
+
+    let result01 = getCookie("result01");
+    let result02 = getCookie("result02");
+    let result03 = getCookie("result03");
+    let result04 = getCookie("result04");
+    let result05 = getCookie("result05");
+
+    if(result01 != null) {
+        likeGame.style.backgroundColor = result01;
+        likeGame.children[0].innerText = "#" + result01.toUpperCase().charAt(0) + result01.slice(1);
+    }
+    if(result02 != null) {
+        placeGame.style.backgroundColor = result02;
+        placeGame.children[0].innerText = "#" + result02.toUpperCase().charAt(0) + result02.slice(1);
+    }
+    if(result03 != null) {
+        animalGame.style.backgroundColor = result03;
+        animalGame.children[0].innerText = "#" + result03.toUpperCase().charAt(0) + result03.slice(1);
+    }
+    if(result04 != null) {
+        activeGame.style.backgroundColor = result04;
+        activeGame.children[0].innerText = "#" + result04.toUpperCase().charAt(0) + result04.slice(1);
+    }
+    if(result05 != null) {
+        dislikeGame.style.backgroundColor = result05;
+        dislikeGame.children[0].innerText = "#" + result05.toUpperCase().charAt(0) + result05.slice(1);
+    }
+    
 </script>
 </html>
