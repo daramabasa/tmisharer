@@ -111,6 +111,10 @@
             cursor: pointer;
         }
             .share:active { box-shadow: none; }
+
+            #share {
+                display: none;
+            }
     </style>
 </head>
 <body>
@@ -151,7 +155,8 @@
             <h4>#textMessage</h4>
         </div>
     </div>
-    <button class="share">친구에게 공유하기</button>
+    <button class="share" id="share">친구에게 공유하기</button>
+    <button class="share" id="goto" onclick="location.href='index.html'">나도 해보러 가기</button>
 </div>
 </body>
 <script>
