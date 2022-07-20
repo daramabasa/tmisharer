@@ -85,7 +85,13 @@
         border: 5px solid blue;
       }
 
-      input[type="submit"] { cursor: pointer; }
+      input[type="submit"] {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+      
+        cursor: pointer;
+      }
 
     footer h6 {
       margin-top: 100px;
@@ -98,7 +104,7 @@
   <div class="container">
     <header><h1 id="title">가장 좋아하는 색깔 선택지들</h1></header>
 
-    <form name="list" action="" method="GET" onsubmit="return checkForm()">
+    <form name="list" action="sharequiz.html" method="GET" onsubmit="return checkForm()">
       <div class="answerList">
         <input type="radio" name="game01" id="answer01" value="1" hidden>
         <label for="answer01" class="answer">

@@ -6,7 +6,7 @@
     <style>
         body { background-color: #eee; }
         .container{
-            width: 850px; height: 850px;
+            width: 850px; height: 1650px;
 
             margin: 0 auto; margin-top: 1vh;
             padding: 35px;
@@ -110,9 +110,32 @@
                     background-color: black;
                 }
                 .game h2, .game h4 { padding: 0; margin: 0; color: white; position: relative; }
-            
+        
+        .countsection {
+            margin: 75px 0;
+        }
+            .countsection .count_highlight {
+                color: #FBBC05;
+                font-weight: bold;
+            }
+        
+        .friendsection {
+            margin: 100px 0 75px 0;
+        }
+            .guess {
+                width: 125px; height: 35px;
+                border-radius: 35px;
+
+                display: inline-block;
+
+                line-height: 35px;
+
+                background-color: #D8D8D8;
+                color: white;
+            }
+
         .share{
-            width: 300px; height: 70px;
+            width: 300px; height: 50px;
             
             margin: 0 auto;
             margin-top: 10px;
@@ -174,10 +197,64 @@
             <h4>#textMessage</h4>
         </div>
     </div>
-    <div class="countsection"></div>
-    <div class="friendsection"></div>
+    <div class="countsection">
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#쩝쩝대는 사람</span>을 가장 싫어한다고 답했습니다.</p>        
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#잘생긴/예쁜 사람</span>을 가장 좋아한다고 답했습니다.</p>
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#고양이</span>를 가장 좋아한다고 답했습니다.</p>
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#아쿠아리움</span>을 가장 좋아한다고 답했습니다.</p>
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#그림그리기</span>를 가장 좋아한다고 답했습니다.</p>
+    </div>
+    <div class="friendsection">
+        <div id="friendtitle"><h1>친구들의 예상</h1></div>
+        <div class="friend">
+            <img src="https://via.placeholder.com/35x35" alt="">
+            홍길동: 
+            <div class="guess">#쩝쩝대는</div>
+            <div class="guess">#잘 웃는</div>
+            <div class="guess">#강아지</div>
+            <div class="guess">#영화관</div>
+            <div class="guess">#잠자기</div>
+        </div>
+        <div class="friend">
+            <img src="https://via.placeholder.com/35x35" alt="">
+            홍길동: 
+            <div class="guess">#쩝쩝대는</div>
+            <div class="guess">#잘 웃는</div>
+            <div class="guess">#강아지</div>
+            <div class="guess">#영화관</div>
+            <div class="guess">#잠자기</div>
+        </div>
+        <div class="friend">
+            <img src="https://via.placeholder.com/35x35" alt="">
+            홍길동: 
+            <div class="guess">#쩝쩝대는</div>
+            <div class="guess">#잘 웃는</div>
+            <div class="guess">#강아지</div>
+            <div class="guess">#영화관</div>
+            <div class="guess">#잠자기</div>
+        </div>
+        <div class="friend">
+            <img src="https://via.placeholder.com/35x35" alt="">
+            홍길동: 
+            <div class="guess">#쩝쩝대는</div>
+            <div class="guess">#잘 웃는</div>
+            <div class="guess">#강아지</div>
+            <div class="guess">#영화관</div>
+            <div class="guess">#잠자기</div>
+        </div>
+        <div class="friend">
+            <img src="https://via.placeholder.com/35x35" alt="">
+            홍길동: 
+            <div class="guess">#쩝쩝대는</div>
+            <div class="guess">#잘 웃는</div>
+            <div class="guess">#강아지</div>
+            <div class="guess">#영화관</div>
+            <div class="guess">#잠자기</div>
+        </div>
+    </div>
     
-    <button class="share" id="share">친구에게 공유하기</button>
+    <button class="share" id="share">친구에게 공유하기</button><br>
+    <button class="share" id="share">친구에게 문제지 보내기</button>
     <button class="share" id="goto" onclick="location.href='index.html'">나도 해보러 가기</button>
 </div>
 
