@@ -253,8 +253,8 @@
         </div>
     </div>
     
-    <button class="share" id="share">친구에게 공유하기</button><br>
-    <button class="share" id="share">친구에게 문제지 보내기</button>
+    <button class="share" id="share">나의 프로필 공유하기</button><br>
+    <button class="share" id="quiz">문제지 제작하기</button>
     <button class="share" id="goto" onclick="location.href='index.html'">나도 해보러 가기</button>
 </div>
 
@@ -286,6 +286,29 @@
     dislikeGame.addEventListener('click', function(){
         location.href="game05Page.html";
     });
+
+    let share = document.querySelector("#share");
+    let quiz = document.querySelector("#quiz");
+
+    share.addEventListener('click', function() {
+        let copy = document.createElement('textarea');
+        copy.value = window.document.location.href+ "?id=";  //id 값은 jsp 로 가져오기
+        document.body.appendChild(copy);
+
+        copy.select();
+        document.execCommand("copy");
+        document.body.removeChild(copy);
+    });
+
+    quiz.addEventListener('click', function() {
+        let copy = document.createElement('textarea');
+        copy.value = window.document.location.href+ "sharequiz.html?id=";  //id 값은 jsp 로 가져오기
+        document.body.appendChild(copy);
+
+        copy.select();
+        document.execCommand("copy");
+        document.body.removeChild(copy);
+    })
 
     var getCookie = function(name) {
         var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
