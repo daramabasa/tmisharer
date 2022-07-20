@@ -290,9 +290,21 @@
     let share = document.querySelector("#share");
     let quiz = document.querySelector("#quiz");
 
+    function inithref(url) {
+        let url_array = url.split("/");
+        let inittext = '';
+
+        for(let i = 0; i < url_array.length-1; i++) {
+            inittext += url_array[i] + "/";
+        }
+
+        return inittext;
+    }
+    
     share.addEventListener('click', function() {
         let copy = document.createElement('textarea');
-        copy.value = window.document.location.href+ "?id=";  //id 값은 jsp 로 가져오기
+        copy.value = inithref(window.document.location.href);
+        copy.value += "index.html?id=";  //id 값은 jsp 로 가져오기
         document.body.appendChild(copy);
 
         copy.select();
@@ -302,7 +314,8 @@
 
     quiz.addEventListener('click', function() {
         let copy = document.createElement('textarea');
-        copy.value = window.document.location.href+ "sharequiz.html?id=";  //id 값은 jsp 로 가져오기
+        copy.value = inithref(window.document.location.href);
+        copy.value += "sharequiz.html?id=";  //id 값은 jsp 로 가져오기
         document.body.appendChild(copy);
 
         copy.select();
