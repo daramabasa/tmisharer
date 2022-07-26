@@ -1,0 +1,18 @@
+@charset "UTF-8";
+input{
+  display:none;
+}
+div{
+  width: 380px;
+  height: 380px;
+  border: 1px solid black;
+  background-position: center;
+  background-size: cover;  
+  border-radius: 70%;
+  overflow: hidden;
+  object-fit: cover; 
+}
+#coverPreview{
+  width: 380px;
+  height: 380px;
+}
