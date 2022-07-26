@@ -370,8 +370,8 @@
         copy.value = inithref(window.document.location.href);
         
        	if(<%=(request_id == null && session_id == null) ? true : false%>) {
-       		copy.value += "index.html";
-       	} else copy.value += "index.html?id=" + <%=session_id %>;  //id 값은 jsp 로 가져오기
+       		copy.value += "index.jsp";
+       	} else copy.value += "index.jsp?id=" + <%=session_id %>;  //id 값은 jsp 로 가져오기
         document.body.appendChild(copy);
 
         copy.select();
@@ -382,7 +382,7 @@
     quiz.addEventListener('click', function() {
         let copy = document.createElement('textarea');
         copy.value = inithref(window.document.location.href);
-        copy.value += "sharequiz.html?id=" + <%=session_id %>;  //id 값은 jsp 로 가져오기
+        copy.value += "sharequiz.jsp?id=" + <%=session_id %>;  //id 값은 jsp 로 가져오기
         document.body.appendChild(copy);
 
         copy.select();

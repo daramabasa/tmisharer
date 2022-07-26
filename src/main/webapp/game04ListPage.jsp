@@ -6,7 +6,7 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	String sql = "SELECT * FROM src WHERE game_no=3";
+	String sql = "SELECT * FROM src WHERE game_no=4";
 	String list = "";
 	
 	String friendName = (String) request.getParameter("id");
@@ -146,99 +146,99 @@
   <div class="container">
     <header><h1 id="title">가장 좋아하는 색깔 선택지들</h1></header>
 
-     <form name="list" action="sharequiz.jsp?id=<%=friendName %>" method="POST" onsubmit="return checkForm()">
+    <form name="list" action="sharequiz.jsp?id=<%=friendName %>" method="POST" onsubmit="return checkForm()">
       <div class="answerList">
-        <input type="radio" name="game03" id="answer01" value="1" hidden>
+        <input type="radio" name="game04" id="answer01" value="1" hidden>
         <label for="answer01" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer02" value="2" hidden>
+        <input type="radio" name="game04" id="answer02" value="2" hidden>
         <label for="answer02" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer03" value="3" hidden>
+        <input type="radio" name="game04" id="answer03" value="3" hidden>
         <label for="answer03" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-       <input type="radio" name="game03" id="answer04" value="4" hidden>
+       <input type="radio" name="game04" id="answer04" value="4" hidden>
         <label for="answer04" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer05" value="5" hidden>
+        <input type="radio" name="game04" id="answer05" value="5" hidden>
         <label for="answer05" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer06" value="6" hidden>
+        <input type="radio" name="game04" id="answer06" value="6" hidden>
         <label for="answer06" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer07" value="7" hidden>
+        <input type="radio" name="game04" id="answer07" value="7" hidden>
         <label for="answer07" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer08" value="8" hidden>
+        <input type="radio" name="game04" id="answer08" value="8" hidden>
         <label for="answer08" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer09" value="9" hidden>
+        <input type="radio" name="game04" id="answer09" value="9" hidden>
         <label for="answer09" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer10" value="10" hidden>
+        <input type="radio" name="game04" id="answer10" value="10" hidden>
         <label for="answer10" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer11" value="11" hidden>
+        <input type="radio" name="game04" id="answer11" value="11" hidden>
         <label for="answer11" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer12" value="12" hidden>
+        <input type="radio" name="game04" id="answer12" value="12" hidden>
         <label for="answer12" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer13" value="13" hidden>
+        <input type="radio" name="game04" id="answer13" value="13" hidden>
         <label for="answer13" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer14" value="14" hidden>
+        <input type="radio" name="game04" id="answer14" value="14" hidden>
         <label for="answer14" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer15" value="15" hidden>
+        <input type="radio" name="game04" id="answer15" value="15" hidden>
         <label for="answer15" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
         </label>
 
-        <input type="radio" name="game03" id="answer16" value="16" hidden>
+        <input type="radio" name="game04" id="answer16" value="16" hidden>
         <label for="answer16" class="answer">
           <img src="https://via.placeholder.com/150x90" alt="img">
           <p>#예시문구입니다.</p>
@@ -251,7 +251,7 @@
 </body>
 <script>
 
-  var animalList = [ <%=list %> ];
+  var activeList = [ <%=list %> ];
 
   function setCookie(cookie_name, value, days) {
     var exdate = new Date();
@@ -263,9 +263,9 @@
   }
   
   function checkForm() {
-    for(let i = 0; i < list.game03.length; i++) {
-      if(list.game03[i].checked == true) {
-    	  setCookie("game03", i+1 , 1);
+    for(let i = 0; i < list.game04.length; i++) {
+      if(list.game04[i].checked == true) {
+    	  setCookie("game04", i+1 , 1);
     	  return true;
       }
     }
@@ -273,12 +273,12 @@
     return false;
   }
   
-  //console.log(list.game03);
+  //console.log(list.game04);
   
-  for(let i = 0; i < list.game03.length; i++) {
-	  //console.log(list.game03[i].nextElementSibling.firstElementChild);
-	  list.game03[i].nextElementSibling.firstElementChild.src = "images/동물/" + animalList[i];
-	  list.game03[i].nextElementSibling.lastElementChild.innerText = "#" + animalList[i].split("_")[0];
+  for(let i = 0; i < list.game04.length; i++) {
+	  //console.log(list.game04[i].nextElementSibling.firstElementChild);
+	  list.game04[i].nextElementSibling.firstElementChild.src = "images/활동/" + activeList[i];
+	  list.game04[i].nextElementSibling.lastElementChild.innerText = "#" + activeList[i].split("_")[0];
   }
   
 </script>

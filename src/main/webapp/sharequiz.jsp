@@ -4,26 +4,29 @@
 <% 
 	Cookie[] cookies = request.getCookies();
 
-	String[] games = new String[5];
+	int[] games = new int[5];
 	String[] guess = new String[5];
+	String[] guess_text = new String[5];
+	String friendId = (String)request.getParameter("id");
+	String friendName = "";
 
 	if(cookies != null) {
 		for(int i = 0; i < cookies.length; i++) {
 			switch(cookies[i].getName()){
 				case "game01":
-					games[0] = cookies[i].getValue();
+					games[0] = Integer.parseInt(cookies[i].getValue());
 					break;
 				case "game02":
-					games[1] = cookies[i].getValue();
+					games[1] = Integer.parseInt(cookies[i].getValue());
 					break;
 				case "game03":
-					games[2] = cookies[i].getValue();
+					games[2] = Integer.parseInt(cookies[i].getValue());
 					break;
 				case "game04":
-					games[3] = cookies[i].getValue();
+					games[3] = Integer.parseInt(cookies[i].getValue());
 					break;
 				case "game05":
-					games[4] = cookies[i].getValue();
+					games[4] = Integer.parseInt(cookies[i].getValue());
 					break;
 					
 				default: continue;
@@ -34,12 +37,17 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet[] rs = new ResultSet[5] ;
+	ResultSet rs2 = null;
+	
 	String[] sqls = {"SELECT * FROM src WHERE game_no=1 AND result_no=?",
 					"SELECT * FROM src WHERE game_no=2 AND result_no=?",
 					"SELECT * FROM src WHERE game_no=3 AND result_no=?",
 					"SELECT * FROM src WHERE game_no=4 AND result_no=?",
 					"SELECT * FROM src WHERE game_no=5 AND result_no=?" };
 
+	String sql = "SELECT name FROM member WHERE member.id=?";
+	
+	
 	try {
 		Context init = new InitialContext();
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
@@ -50,14 +58,23 @@
 		
 		for(int i = 0; i < sqls.length; i++) {
 			pstmt = conn.prepareStatement(sqls[i]);
-			if(games[i] == null) continue;
-			pstmt.setInt(1, Integer.parseInt(games[i]));
+			if(games[i] == 0) continue;
+			pstmt.setInt(1, games[i]);
 			rs[i] = pstmt.executeQuery();
 			
 			rs[i].next();
 			guess[i] = rs[i].getString("img_width");
+			guess_text[i] = rs[i].getString("result_desc");
 		}
-
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, friendId);
+		
+		rs2 = pstmt.executeQuery();
+		if(rs2.next()) {
+			friendName = rs2.getString(1);
+		}
+		
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -99,9 +116,26 @@
 
       border-radius: 10px;
       border: none;
-
+		
+	  text-align: center;
+	  
+	  color: white;
       background-color: #D8D8D8;
     }
+    	input#name::placeholder {
+    		text-align: center;
+    		opacity: 1;
+    	}
+    	
+    	input#name::-webkit-input-placeholder {
+    		text-align: center;
+    		opacity: 1;
+    	} 
+    	
+    	input#name:-ms-input-placeholder {
+    		text-align: center;
+    		opacity: 1;
+    	}
 
     .sections{
         width: 100%;
@@ -158,7 +192,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>홍길동님의 선택은?</h1>
+      <h1><%=friendName %>님의 선택은?</h1>
     </header>
 
     <form name="games" action="" method="GET" onsubmit="return checkForm()">
@@ -166,33 +200,33 @@
 
       <div class="sections">
         <input type="text" name="likeGame" hidden>
-        <div class="game" id="likeGame" style="background-image: url('<%=guess[0] %>');">
+        <div class="game" id="likeGame" style="background-image: url('images/좋아하는 사람 유형/<%=guess[0] %>');">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 사람 유형</h4>
         </div>
         
         <input type="text" name="placeGame" hidden>
-        <div class="game" id="placeGame" style="background-image: url('<%=guess[1] %>');">
+        <div class="game" id="placeGame" style="background-image: url('images/장소/<%=guess[1] %>');">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 장소</h4>
         </div>
         
         <input type="text" name="animalGame" hidden>
         <div class="game" id="animalGame" style="background-image: url('images/동물/<%=guess[2] %>');">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 동물</h4>
         </div>
         
         <input type="text" name="activeGame" hidden>
-        <div class="game" id="activeGame" style="background-image: url('<%=guess[3] %>');">
+        <div class="game" id="activeGame" style="background-image: url('images/활동/<%=guess[3] %>');">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 활동</h4>
         </div>
         
         <input type="text" name="dislikeGame" hidden>
-        <div class="game" id="dislikeGame" style="background-image: url('<%=guess[4] %>');">
+        <div class="game" id="dislikeGame" style="background-image: url('images/싫어하는 사람 유형/<%=guess[4] %>');">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 싫어하는 사람 유형</h4>
         </div>
       </div>
 
@@ -211,26 +245,50 @@
     let dislikeGame = document.querySelector("#dislikeGame");
     
     likeGame.addEventListener('click', function(){
-        location.href="game01ListPage.html";
+        location.href="game01ListPage.jsp?id=<%=friendId %>";
     });
     
     placeGame.addEventListener('click', function(){
-        location.href="game02ListPage.html";
+        location.href="game02ListPage.jsp?id=<%=friendId %>";
     });
     
     animalGame.addEventListener('click', function(){
-        location.href="game03ListPage.jsp";
+        location.href="game03ListPage.jsp?id=<%=friendId %>";
     });
     
     activeGame.addEventListener('click', function(){
-        location.href="game04ListPage.html";
+        location.href="game04ListPage.jsp?id=<%=friendId %>";
     });
     
     dislikeGame.addEventListener('click', function(){
-        location.href="game05ListPage.html";
+        location.href="game05ListPage.jsp?id=<%=friendId %>";
     });
 
+    var getCookie = function(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
+        return value? value[2] : null;  
+    };
     
+    if(<%=games[0] %> != 0) {
+    	games.likeGame.value = '<%=games[0] %>';
+    	likeGame.firstElementChild.innerText = "#" + '<%=guess_text[0] %>';
+    }
+    if(<%=games[1] %> != 0) {
+    	games.placeGame.value = '<%=games[1] %>';
+    	placeGame.firstElementChild.innerText = "#" + '<%=guess_text[1] %>';
+    }
+    if(<%=games[2] %> != 0) {
+    	games.animalGame.value = '<%=games[2] %>';
+    	animalGame.firstElementChild.innerText = "#" + '<%=guess_text[2] %>';
+    }
+    if(<%=games[3] %> != 0) {
+    	games.activeGame.value = '<%=games[3] %>';
+    	activeGame.firstElementChild.innerText = "#" + '<%=guess_text[3] %>';
+    }
+    if(<%=games[4] %> != 0) {
+    	games.dislikeGame.value = '<%=games[4] %>';
+    	dislikeGame.firstElementChild.innerText = "#" + '<%=guess_text[4] %>';
+    }
 
   function checkForm() {
     if(games.likeGame.value == ("")) {
