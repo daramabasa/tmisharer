@@ -201,9 +201,6 @@
         }
             .share:active { box-shadow: none; }
 
-            #goto { display: none; }
-            /* #share { display: none; } */
-
         footer h6 {
             margin-top: 100px;
             text-align: center;
@@ -217,7 +214,7 @@
         <div class="top">
             <div class="profileimg">
             </div>
-            <%if(session.getAttribute("id") == null) { %>
+            <%if(session_id == null) { %>
             	<button class="btn" id="login" onclick="location.href='loginPage.jsp'">로그인</button>
             <%} else {  %>
             	<button class="btn" id="logout" onclick="location.href='logout.jsp'">로그아웃</button>
@@ -318,7 +315,7 @@
     <% } %>
     
     <% if(request_id != null) { %>
-    	<button class="share" id="goto" onclick="location.href='index.html'">나도 해보러 가기</button>
+    	<button class="share" id="goto" onclick="location.href='index.jsp'">나도 해보러 가기</button>
     <% } %>
 </div>
 
@@ -373,7 +370,7 @@
         
        	if(<%=(request_id == null && session_id == null) ? true : false%>) {
        		copy.value += "index.jsp";
-       	} else copy.value += "index.jsp?id=" + <%=session_id %>;  //id 값은 jsp 로 가져오기
+       	} else copy.value += "index.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
         document.body.appendChild(copy);
 
         copy.select();
@@ -384,7 +381,7 @@
     quiz.addEventListener('click', function() {
         let copy = document.createElement('textarea');
         copy.value = inithref(window.document.location.href);
-        copy.value += "sharequiz.jsp?id=" + <%=session_id %>;  //id 값은 jsp 로 가져오기
+        copy.value += "sharequiz.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
         document.body.appendChild(copy);
 
         copy.select();
