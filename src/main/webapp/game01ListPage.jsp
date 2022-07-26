@@ -145,7 +145,7 @@
 </head>
 <body>
   <div class="container">
-    <header><h1 id="title">가장 좋아하는 색깔 선택지들</h1></header>
+    <header><h1 id="title">가장 좋아하는 사람 유형 선택지들</h1></header>
 
     <form name="list" action="sharequiz.jsp?id=<%=friendName %>" method="POST" onsubmit="return checkForm()">
       <div class="answerList">

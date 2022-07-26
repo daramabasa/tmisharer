@@ -195,7 +195,8 @@
       <h1><%=friendName %>님의 선택은?</h1>
     </header>
 
-    <form name="games" action="" method="GET" onsubmit="return checkForm()">
+    <form name="games" action="quizProcess.jsp" method="POST" onsubmit="return checkForm()">
+      <input type="text" name="id" id="id" value="<%=friendId %>" hidden>
       <input type="text" name="name" id="name" placeholder="닉네임 입력" required>
 
       <div class="sections">
