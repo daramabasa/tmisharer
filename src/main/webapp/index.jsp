@@ -104,7 +104,6 @@
                     cursor: pointer;
                 } 
                     .btn:active { box-shadow: none; }
-                    #logout { display: none; }
         
 
         .profileid{
@@ -218,8 +217,11 @@
         <div class="top">
             <div class="profileimg">
             </div>
-            <button class="btn" id="login" onclick="location.href='loginPage.html'">로그인</button>
-            <button class="btn" id="logout">로그아웃</button>
+            <%if(session.getAttribute("id") == null) { %>
+            	<button class="btn" id="login" onclick="location.href='loginPage.jsp'">로그인</button>
+            <%} else {  %>
+            	<button class="btn" id="logout" onclick="location.href='logout.jsp'">로그아웃</button>
+            <%} %>
         </div>
         <div class="profileid">
             ID <%=(session_id != null) ? session_id : "GUEST" %>

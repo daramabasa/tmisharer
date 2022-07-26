@@ -1,5 +1,6 @@
 let openWin;
 function chkID() {
+	console.log("진행은 됨");
   if(document.getElementById("id").value == null || document.getElementById("id").value == undefined || document.getElementById("id").value == "") { 
     document.getElementById("id").focus();
   } else {

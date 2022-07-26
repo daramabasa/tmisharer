@@ -11,7 +11,7 @@
 	
 	try{
 		Context init=new InitialContext();
-		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/JSP_java");
+		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
 		
 		pstmt=conn.prepareStatement(sql);
@@ -63,9 +63,6 @@ function useID(){
 	self.close();
 }
 
-function idCheck(){
-	
-}
 </script>
 </body>
 </html>

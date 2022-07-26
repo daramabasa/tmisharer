@@ -22,7 +22,7 @@ String regidate = st.format(nowTime); //regidate는 현재 시간
 
 	try {
 		Context init = new InitialContext();
-		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/JSP_java");
+		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
 
 		pstmt = conn.prepareStatement(sql);
@@ -37,13 +37,13 @@ String regidate = st.format(nowTime); //regidate는 현재 시간
 
 		
 		if(result != 0) {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("loginPage.jsp");
 			return;
 			
 		}
 	} catch(Exception e) {
 		e.printStackTrace();
-		response.sendRedirect("regStep1.jsp");
+		response.sendRedirect("joinPage.jsp");
 	} finally {
 		try {
 			pstmt.close();
