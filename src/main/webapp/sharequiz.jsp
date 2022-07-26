@@ -2,9 +2,35 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, javax.sql.*, javax.naming.*" %>
 <% 
-	String[] games = { request.getParameter("game01"), request.getParameter("game02"), request.getParameter("game03"), request.getParameter("game04"), request.getParameter("game05") };
+	Cookie[] cookies = request.getCookies();
+
+	String[] games = new String[5];
 	String[] guess = new String[5];
 
+	if(cookies != null) {
+		for(int i = 0; i < cookies.length; i++) {
+			switch(cookies[i].getName()){
+				case "game01":
+					games[0] = cookies[i].getValue();
+					break;
+				case "game02":
+					games[1] = cookies[i].getValue();
+					break;
+				case "game03":
+					games[2] = cookies[i].getValue();
+					break;
+				case "game04":
+					games[3] = cookies[i].getValue();
+					break;
+				case "game05":
+					games[4] = cookies[i].getValue();
+					break;
+					
+				default: continue;
+			}
+		}
+	}
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet[] rs = new ResultSet[5] ;
@@ -21,19 +47,17 @@
 		
 		System.out.println("db연결에 성공했습니다.");
 		
-		conn.setAutoCommit(false);
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < sqls.length; i++) {
 			pstmt = conn.prepareStatement(sqls[i]);
 			if(games[i] == null) continue;
-			pstmt.setString(1, games[i]);
+			pstmt.setInt(1, Integer.parseInt(games[i]));
 			rs[i] = pstmt.executeQuery();
 			
 			rs[i].next();
 			guess[i] = rs[i].getString("img_width");
 		}
 
-		conn.setAutoCommit(true);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -154,7 +178,7 @@
         </div>
         
         <input type="text" name="animalGame" hidden>
-        <div class="game" id="animalGame" style="background-image: url('<%=guess[2] %>');">
+        <div class="game" id="animalGame" style="background-image: url('images/동물/<%=guess[2] %>');">
             <h2>#Example</h2>
             <h4>#textMessage</h4>
         </div>

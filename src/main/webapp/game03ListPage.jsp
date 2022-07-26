@@ -251,9 +251,21 @@
 
   var animalList = [ <%=list %> ];
 
+  function setCookie(cookie_name, value, days) {
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + days);
+    // 설정 일수만큼 현재시간에 만료값으로 지정
+
+    var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
+    document.cookie = cookie_name + '=' + cookie_value;
+  }
+  
   function checkForm() {
     for(let i = 0; i < list.game03.length; i++) {
-      if(list.game03[i].checked == true) return true;
+      if(list.game03[i].checked == true) {
+    	  setCookie("game03", i+1 , 1);
+    	  return true;
+      }
     }
 
     return false;
