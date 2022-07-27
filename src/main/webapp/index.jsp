@@ -49,6 +49,14 @@
 		conn.setAutoCommit(true);
 	} catch (Exception e) {
 		e.printStackTrace();
+	} finally {
+		try {
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -250,11 +258,11 @@
         </div>
     </div>
     <div class="countsection">
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#쩝쩝대는 사람</span>을 가장 싫어한다고 답했습니다.</p>        
         <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#잘생긴/예쁜 사람</span>을 가장 좋아한다고 답했습니다.</p>
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#고양이</span>를 가장 좋아한다고 답했습니다.</p>
         <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#아쿠아리움</span>을 가장 좋아한다고 답했습니다.</p>
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#고양이</span>를 가장 좋아한다고 답했습니다.</p>
         <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#그림그리기</span>를 가장 좋아한다고 답했습니다.</p>
+        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#쩝쩝대는 사람</span>을 가장 싫어한다고 답했습니다.</p>        
     </div>
     <div class="friendsection">
         <div id="friendtitle"><h1>친구들의 예상</h1></div>
@@ -305,16 +313,15 @@
         </div>
     </div>
     
-    <% if(request_id == null & session_id == null) { %>
+    <% if(request_id == null && session_id == null) { %>
     	<button class="share" id="share">페이지 공유하기</button><br>
     <% } %>
     
-    <% if(session_id != null) { %>
+    <% if(session_id != null || (request_id != null && session_id == request_id)) { %>
     	<button class="share" id="share">나의 프로필 공유하기</button><br>
     	<button class="share" id="quiz">문제지 제작하기</button>
     <% } %>
-    
-    <% if(request_id != null) { %>
+    <% if(request_id != null || (session_id != null && request_id != null && session_id != request_id)) { %>
     	<button class="share" id="goto" onclick="location.href='index.jsp'">나도 해보러 가기</button>
     <% } %>
 </div>
@@ -329,23 +336,23 @@
     let dislikeGame = document.querySelector("#dislikeGame");
     
     likeGame.addEventListener('click', function(){
-        location.href="game01Page.html";
+        location.href="game01Page.jsp";
     });
     
     placeGame.addEventListener('click', function(){
-        location.href="game02Page.html";
+        location.href="game02Page.jsp";
     });
     
     animalGame.addEventListener('click', function(){
-        location.href="game03Page.html";
+        location.href="game03Page.jsp";
     });
     
     activeGame.addEventListener('click', function(){
-        location.href="game04Page.html";
+        location.href="game04Page.jsp";
     });
     
     dislikeGame.addEventListener('click', function(){
-        location.href="game05Page.html";
+        location.href="game05Page.jsp";
     });
 
     let share = document.querySelector("#share");

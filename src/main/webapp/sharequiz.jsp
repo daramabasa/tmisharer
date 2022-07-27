@@ -66,7 +66,7 @@
 			guess[i] = rs[i].getString("img_width");
 			guess_text[i] = rs[i].getString("result_desc");
 		}
-		
+
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, friendId);
 		
@@ -77,6 +77,18 @@
 		
 	} catch (Exception e) {
 		e.printStackTrace();
+	} finally {
+		try {
+			for(int i = 0; i < rs.length; i++) {
+				if(games[i] == 0) continue;
+				rs[i].close(); 
+			}
+			rs2.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 %>
 <!DOCTYPE html>

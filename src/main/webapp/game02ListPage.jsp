@@ -6,8 +6,10 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	
 	String sql = "SELECT * FROM src WHERE game_no=2";
 	String list = "";
+	String name_list = "";
 	
 	String friendName = (String) request.getParameter("id");
 	
@@ -18,20 +20,29 @@
 		
 		System.out.println("db연결에 성공했습니다.");
 		
-		conn.setAutoCommit(false);
 		
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 
 		while(rs.next()) {
 			list += "'" + rs.getString("img_width") + "'" + ",";
+			name_list += "'" + rs.getString("result_desc") + "'" + ",";
 		}
 		
 		list.substring(0, list.length() - 1);
+		name_list.substring(0, name_list.length() - 1);
 
-		conn.setAutoCommit(true);
+		
 	} catch (Exception e) {
 		e.printStackTrace();
+	} finally {
+		try {
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -252,13 +263,13 @@
 <script>
 
   var placeList = [ <%=list %> ];
+  var nameList = [ <%=name_list %>];
 
-  function setCookie(cookie_name, value, days) {
+  function setCookie(cookie_name, value, hours) {
     var exdate = new Date();
-    exdate.setDate(exdate.getDate() + days);
-    // 설정 일수만큼 현재시간에 만료값으로 지정
+	exdate.setHours(exdate.getHours() + hours);
 
-    var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
+    var cookie_value = escape(value) + ((hours == null) ? '' : '; expires=' + exdate.toUTCString());
     document.cookie = cookie_name + '=' + cookie_value;
   }
   
@@ -278,7 +289,7 @@
   for(let i = 0; i < list.game02.length; i++) {
 	  //console.log(list.game02[i].nextElementSibling.firstElementChild);
 	  list.game02[i].nextElementSibling.firstElementChild.src = "images/장소/" + placeList[i];
-	  list.game02[i].nextElementSibling.lastElementChild.innerText = "#" + placeList[i].split("_")[0];
+	  list.game02[i].nextElementSibling.lastElementChild.innerText = "#" + nameList[i];
   }
   
 </script>
