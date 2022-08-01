@@ -11,6 +11,7 @@
 	String session_id = (String) session.getAttribute("id");
 	int game_no = Integer.parseInt(request.getParameter("game_no"));
 	int result_no = Integer.parseInt(request.getParameter("result0" + game_no));
+	
 	if(session_id != null) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

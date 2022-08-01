@@ -5,11 +5,11 @@
 
 	String session_id = (String) session.getAttribute("id");
 	String request_id = (String) request.getParameter("id");
-	
-
+			
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	PreparedStatement pstmt2 = null;
+	PreparedStatement pstmt3 = null;
 	ResultSet rs = null;
 	
 	// 게임 결과 보여주는 sql
@@ -19,13 +19,42 @@
 	String sql2 = "SELECT COUNT(*) FROM game WHERE";
 	
 	// 친구 추측 보여주는 sql
-	String sql3 = "SELECT * FROM (SELECT * FROM quiz ORDER BY guessdate DESC) WHERE ROWNUM <= 5";
+	String sql3 = "SELECT * FROM (SELECT * FROM quiz WHERE id=? ORDER BY guessdate DESC) WHERE ROWNUM <= 5";
 	
 	boolean login = session_id != null;
 	boolean shareLink = request_id != null;
 	int countList[] = new int[5];
 	String selectList[] = new String[5];
 	String descList[] = new String[5];
+	
+	Cookie cookies[] = request.getCookies();
+	int cookieList[] = new int[5];
+	
+	for(int i = 0; i < cookies.length; i++) {
+		Cookie c = cookies[i];
+		switch (c.getName()) {
+			case "result01":
+				cookieList[0] = Integer.parseInt(c.getValue());
+				break;
+			case "result02":
+				cookieList[1] = Integer.parseInt(c.getValue());
+				break;
+			case "result03":
+				cookieList[2] = Integer.parseInt(c.getValue());
+				break;
+			case "result04":
+				cookieList[3] = Integer.parseInt(c.getValue());
+				break;
+			case "result05":
+				cookieList[4] = Integer.parseInt(c.getValue());
+				break;
+				
+			default:
+				continue;
+		}
+	}
+	
+	String dbList[] = new String[5];
 	
 			
 	try {
@@ -72,6 +101,27 @@
 				if(rs2 != null) rs2.close();
 				
 			}
+			
+		} else {
+			
+			for(int i = 0; i < 5; i++) {
+				pstmt = conn.prepareStatement("SELECT img_width, result_desc FROM src WHERE game_no=? AND result_no=?");
+				pstmt.setInt(1, i+1);
+				pstmt.setInt(2, cookieList[i]);
+				System.out.println("cookieList[" + i + "]: " + cookieList[i]);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					selectList[i] = rs.getString(1);
+					System.out.println("selectList[" + i + "]: " + selectList[i]);
+					
+					descList[i] = rs.getString(2);
+					System.out.println("descList[" + i + "]: " + descList[i]);
+				}
+				
+			}
+			
 		}
 		
 	} catch (Exception e) {
@@ -286,59 +336,104 @@
         </div>
     </div>
     <div class="countsection">
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#잘생긴/예쁜 사람</span>을 가장 좋아한다고 답했습니다.</p>
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#아쿠아리움</span>을 가장 좋아한다고 답했습니다.</p>
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#고양이</span>를 가장 좋아한다고 답했습니다.</p>
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#그림그리기</span>를 가장 좋아한다고 답했습니다.</p>
-        <p class="countresult"><span class="count_highlight">n</span>명의 사람들이 <span class="count_highlight">#쩝쩝대는 사람</span>을 가장 싫어한다고 답했습니다.</p>        
+    <%
+    	for(int i = 0; i < 5; i++) {
+    		if(descList[i] == null) {
+    			%>
+    				<p class="countresult">해당 밸런스 게임이 아직 진행되지 않았습니다.</p> 
+    			<%
+    			continue;
+    		}
+    		if(i == 4) {
+    			%>
+    				<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span>을(를) 가장 싫어한다고 답했습니다.</p> 
+    			<%
+    		}
+    		
+    		%>
+    			<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span>을(를) 가장 좋아한다고 답했습니다.</p>
+    		<%
+    	}
+    %>
+               
     </div>
+    
     <div class="friendsection">
         <div id="friendtitle"><h1>친구들의 예상</h1></div>
-        <div class="friend">
-            <img src="https://via.placeholder.com/35x35" alt="">
-            홍길동: 
-            <div class="guess">#쩝쩝대는</div>
-            <div class="guess">#잘 웃는</div>
-            <div class="guess">#강아지</div>
-            <div class="guess">#영화관</div>
-            <div class="guess">#잠자기</div>
-        </div>
-        <div class="friend">
-            <img src="https://via.placeholder.com/35x35" alt="">
-            홍길동: 
-            <div class="guess">#쩝쩝대는</div>
-            <div class="guess">#잘 웃는</div>
-            <div class="guess">#강아지</div>
-            <div class="guess">#영화관</div>
-            <div class="guess">#잠자기</div>
-        </div>
-        <div class="friend">
-            <img src="https://via.placeholder.com/35x35" alt="">
-            홍길동: 
-            <div class="guess">#쩝쩝대는</div>
-            <div class="guess">#잘 웃는</div>
-            <div class="guess">#강아지</div>
-            <div class="guess">#영화관</div>
-            <div class="guess">#잠자기</div>
-        </div>
-        <div class="friend">
-            <img src="https://via.placeholder.com/35x35" alt="">
-            홍길동: 
-            <div class="guess">#쩝쩝대는</div>
-            <div class="guess">#잘 웃는</div>
-            <div class="guess">#강아지</div>
-            <div class="guess">#영화관</div>
-            <div class="guess">#잠자기</div>
-        </div>
-        <div class="friend">
-            <img src="https://via.placeholder.com/35x35" alt="">
-            홍길동: 
-            <div class="guess">#쩝쩝대는</div>
-            <div class="guess">#잘 웃는</div>
-            <div class="guess">#강아지</div>
-            <div class="guess">#영화관</div>
-            <div class="guess">#잠자기</div>
-        </div>
+        <%
+        	try {
+        		Context init = new InitialContext();
+        		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+        		conn = ds.getConnection();
+        		
+        		pstmt3 = conn.prepareStatement(sql3);
+        		if(shareLink) {
+        			pstmt3.setString(1, request_id);
+        		}else if(login) {
+        			pstmt3.setString(1, session_id);
+        		}
+
+        		if(shareLink || login) {
+        			
+	        		ResultSet rs2 = pstmt3.executeQuery();
+	        		
+	        		if(rs2 == null) {
+	        			%>
+	        				<div class="friend">아직 예상해준 친구가 없습니다. 링크를 공유해서 친구에게 보내보세요.</div>
+	        			<%
+	        		} else {
+		        		while(rs2.next()){
+		        			
+		        			for(int i = 1; i <= 5; i++) {
+		        				pstmt = conn.prepareStatement("SELECT result_desc FROM src WHERE game_no=? AND result_no=?");
+		        				pstmt.setInt(1, i);
+		        				pstmt.setInt(2, rs2.getInt("guess0" + i));
+		        				
+		        				rs = pstmt.executeQuery();
+		        				
+		        				if(rs.next()) {
+		        					dbList[i-1] = rs.getString(1);
+		        				}
+		        				
+		        			}
+        			
+	        %>
+		        <div class="friend">
+		            <img src="https://via.placeholder.com/35x35" alt="">
+		            <%=rs2.getString("name") %>: 
+		            <div class="guess">#<%=dbList[0] %></div>
+		            <div class="guess">#<%=dbList[1] %></div>
+		            <div class="guess">#<%=dbList[2] %></div>
+		            <div class="guess">#<%=dbList[3] %></div>
+		            <div class="guess">#<%=dbList[4] %></div>
+		        </div>
+	        <%
+	        			}
+	        		}
+	        		
+	        		if(rs2 != null) rs2.close();
+        		} else {
+        			%>
+        				<div class="info">
+        					TMI 공유기 회원만 이용가능한 부분입니다.<br>
+        					지금 회원가입해서 친구에게 공유해보세요.
+        				</div>
+        			<%
+        		}
+        		
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	} finally {
+        		try {
+	        		if(rs != null) rs.close();
+	        		if(pstmt != null) pstmt.close();
+	        		if(pstmt3 != null) pstmt3.close();
+	        		if(conn != null) conn.close();
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        	}
+        %>
     </div>
     
     <% if(request_id == null && session_id == null) { %>
@@ -413,16 +508,18 @@
         document.body.removeChild(copy);
     });
 
-    quiz.addEventListener('click', function() {
-        let copy = document.createElement('textarea');
-        copy.value = inithref(window.document.location.href);
-        copy.value += "sharequiz.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
-        document.body.appendChild(copy);
-
-        copy.select();
-        document.execCommand("copy");
-        document.body.removeChild(copy);
-    })
+    if(quiz != null) {
+	    quiz.addEventListener('click', function() {
+	        let copy = document.createElement('textarea');
+	        copy.value = inithref(window.document.location.href);
+	        copy.value += "sharequiz.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
+	        document.body.appendChild(copy);
+	
+	        copy.select();
+	        document.execCommand("copy");
+	        document.body.removeChild(copy);
+	    });
+    }
 
     var getCookie = function(name) {
         var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
@@ -435,25 +532,25 @@
     let result04 = getCookie("result04");
     let result05 = getCookie("result05");
 
-    if(result01 != null) {
-        likeGame.style.backgroundColor = result01;
-        likeGame.children[0].innerText = "#" + result01.toUpperCase().charAt(0) + result01.slice(1);
+    if(result01 != null || "<%=selectList[0] %>" != null) {
+   	    likeGame.style.backgroundImage = "url('" + "images/좋아하는 사람 유형/<%=selectList[0] %>" +  "')";
+        likeGame.children[0].innerText = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
     }
-    if(result02 != null) {
-        placeGame.style.backgroundColor = result02;
-        placeGame.children[0].innerText = "#" + result02.toUpperCase().charAt(0) + result02.slice(1);
+    if(result02 != null || "<%=selectList[1] %>" != null) {
+        placeGame.style.backgroundImage = "url('" + "images/장소/<%=selectList[1] %>" +  "')";
+        placeGame.children[0].innerText = "<%=descList[1] %>" == "null" ? "#Example" : "#<%=descList[1] %>";
     }
-    if(result03 != null) {
-        animalGame.style.backgroundColor = result03;
-        animalGame.children[0].innerText = "#" + result03.toUpperCase().charAt(0) + result03.slice(1);
+    if(result03 != null || "<%=selectList[2] %>" != null) {
+        animalGame.style.backgroundImage = "url('" + "images/동물/<%=selectList[2] %>" +  "')";
+        animalGame.children[0].innerText = "<%=descList[2] %>" == "null" ? "#Example" : "#<%=descList[2] %>";
     }
-    if(result04 != null) {
-        activeGame.style.backgroundColor = result04;
-        activeGame.children[0].innerText = "#" + result04.toUpperCase().charAt(0) + result04.slice(1);
+    if(result04 != null || "<%=selectList[3] %>" != null) {
+        activeGame.style.backgroundImage = "url('" + "images/활동/<%=selectList[3] %>" +  "')";
+        activeGame.children[0].innerText = "<%=descList[3] %>" == "null" ? "#Example" : "#<%=descList[3] %>";
     }
-    if(result05 != null) {
-        dislikeGame.style.backgroundColor = result05;
-        dislikeGame.children[0].innerText = "#" + result05.toUpperCase().charAt(0) + result05.slice(1);
+    if(result05 != null || "<%=selectList[4] %>" != null) {
+        dislikeGame.style.backgroundImage = "url('" + "images/싫어하는 사람 유형/<%=selectList[4] %>" +  "')";
+        dislikeGame.children[0].innerText = "<%=descList[4] %>" == "null" ? "#Example" : "#<%=descList[4] %>";
     }
     
 </script>

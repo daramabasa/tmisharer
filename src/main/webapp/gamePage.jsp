@@ -226,11 +226,11 @@
 
   function chooseOne(){
 	console.log(list[i]);
-    left_select.style.backgroundImage = "url('" + "images/<%=game_dir%>/" + imgList[list[i]] +  "')";
-    right_select.style.backgroundImage = "url('" + "images//<%=game_dir%>/" + imgList[list[i+1]] +  "')";
+    left_select.style.backgroundImage = "url('" + "images/<%=game_dir%>/" + imgList[list[i]-1] +  "')";
+    right_select.style.backgroundImage = "url('" + "images//<%=game_dir%>/" + imgList[list[i+1]-1] +  "')";
 
-    left_text.innerText = "#" + nameList[list[i]];
-    right_text.innerText = "#" + nameList[list[i+1]];
+    left_text.innerText = "#" + nameList[list[i]-1];
+    right_text.innerText = "#" + nameList[list[i+1]-1];
 
     i += 1;
   }
@@ -245,12 +245,12 @@
 
   function initRound() {
     if(list.length == 1) {
-      document.querySelector("#result_select").style.backgroundImage = "url('" + "images//<%=game_dir%>/" + imgList[list[0]] +  "')";
+      document.querySelector("#result_select").style.backgroundImage = "url('" + "images//<%=game_dir%>/" + imgList[list[0]-1] +  "')";
 
       battleRound.innerText = "최종 선택";
       document.querySelector(".result_selection").style.display = "block";
       result_text.style.display = "block";
-      result_text.innerText = "#" + nameList[list[0]];
+      result_text.innerText = "#" + nameList[list[0]-1];
 
       document.querySelector("#left").style.display = "none";
       document.querySelector("#right").style.display = "none";
