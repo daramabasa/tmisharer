@@ -9,6 +9,7 @@
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
+	PreparedStatement pstmt2 = null;
 	ResultSet rs = null;
 	
 	// 게임 결과 보여주는 sql
@@ -20,6 +21,12 @@
 	// 친구 추측 보여주는 sql
 	String sql3 = "SELECT * FROM (SELECT * FROM quiz ORDER BY guessdate DESC) WHERE ROWNUM <= 5";
 	
+	boolean login = session_id != null;
+	boolean shareLink = request_id != null;
+	int countList[] = new int[5];
+	String selectList[] = new String[5];
+	String descList[] = new String[5];
+	
 			
 	try {
 		Context init = new InitialContext();
@@ -27,33 +34,54 @@
 		conn = ds.getConnection();
 		
 		System.out.println("db연결에 성공했습니다.");
-		
-		conn.setAutoCommit(false);
-		
-		if(session_id != null) {
-			pstmt = conn.prepareStatement(sql1);
-			pstmt.setString(1, session_id);
-			
-			rs = pstmt.executeQuery();
 
-			
-			if(rs.next()){
-				System.out.println("rs 값이 있습니다.");
-			} else {
-				System.out.println("rs 값이 없습니다.");
-			}
-		} else if(request_id != null) {
-			
+		pstmt = conn.prepareStatement(sql1);
+		
+		if(shareLink) {
+			pstmt.setString(1, request_id);
+		}else if(login) {
+			pstmt.setString(1, session_id);
 		}
 		
-		conn.setAutoCommit(true);
+		if(shareLink || login) {
+			rs = pstmt.executeQuery();
+	
+			if(rs.next()){
+				
+				ResultSet rs2 = null;
+				for(int i = 1; i <= 5; i++) {
+					pstmt = conn.prepareStatement("SELECT img_width, result_desc FROM src WHERE game_no=? AND result_no=?");
+					pstmt.setInt(1, i);
+					pstmt.setInt(2, rs.getInt("result0"+i));
+					
+					pstmt2 = conn.prepareStatement(sql2 + " result0" + i + "=?");
+					pstmt2.setInt(1, rs.getInt("result0"+i));
+					
+					rs2 = pstmt.executeQuery();
+					if(rs2.next()) {
+						selectList[i-1] = rs2.getString(1);
+						descList[i-1] = rs2.getString(2);
+					}
+					
+					rs2 = pstmt2.executeQuery();
+					if(rs2.next()) {
+						countList[i-1] = rs2.getInt(1);
+					}
+				}
+				
+				if(rs2 != null) rs2.close();
+				
+			}
+		}
+		
 	} catch (Exception e) {
 		e.printStackTrace();
 	} finally {
 		try {
 			if(rs != null) rs.close();
 			if(pstmt != null) pstmt.close();
-			conn.close();
+			if(pstmt2 != null) pstmt.close();
+			if(conn != null) conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -238,23 +266,23 @@
     <div class="resultsection">
         <div class="game" id="likeGame">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 사람 유형</h4>
         </div>
         <div class="game" id="placeGame">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 장소</h4>
         </div>
         <div class="game" id="animalGame">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 동물</h4>
         </div>
         <div class="game" id="activeGame">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 좋아하는 활동</h4>
         </div>
         <div class="game" id="dislikeGame">
             <h2>#Example</h2>
-            <h4>#textMessage</h4>
+            <h4>#가장 싫어하는 사람 유형</h4>
         </div>
     </div>
     <div class="countsection">
@@ -336,23 +364,23 @@
     let dislikeGame = document.querySelector("#dislikeGame");
     
     likeGame.addEventListener('click', function(){
-        location.href="game01Page.jsp";
+        if(<%=shareLink %> == false) location.href="gamePage.jsp?game_no=1";
     });
     
     placeGame.addEventListener('click', function(){
-        location.href="game02Page.jsp";
+    	if(<%=shareLink %> == false) location.href="gamePage.jsp?game_no=2";
     });
     
     animalGame.addEventListener('click', function(){
-        location.href="game03Page.jsp";
+    	if(<%=shareLink %> == false) location.href="gamePage.jsp?game_no=3";
     });
     
     activeGame.addEventListener('click', function(){
-        location.href="game04Page.jsp";
+    	if(<%=shareLink %> == false) location.href="gamePage.jsp?game_no=4";
     });
     
     dislikeGame.addEventListener('click', function(){
-        location.href="game05Page.jsp";
+    	if(<%=shareLink %> == false) location.href="gamePage.jsp?game_no=5";
     });
 
     let share = document.querySelector("#share");

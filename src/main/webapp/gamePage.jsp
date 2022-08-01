@@ -7,8 +7,32 @@
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	String sql = "SELECT * FROM src WHERE game_no=3";
-	String list = "";
+	int game_no = Integer.parseInt(request.getParameter("game_no"));
+	String game_dir;
+	switch(game_no) {
+		case 1 :
+			game_dir = "좋아하는 사람 유형";
+			break;
+		case 2 :
+			game_dir = "장소";
+			break;
+		case 3 : 
+			game_dir = "동물";
+			break;
+		case 4 :
+			game_dir = "활동";
+			break;
+		case 5 :
+			game_dir = "싫어하는 사람 유형";
+			break;
+		
+		default :
+			game_dir = "동물";
+			break;
+	};
+	
+	String sql = "SELECT * FROM src WHERE game_no=?";
+	String img_list = "";
 	String name_list = "";
 	
 	try {
@@ -19,14 +43,15 @@
 		System.out.println("db연결에 성공했습니다.");
 		
 		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, game_no);
 		rs = pstmt.executeQuery();
 
 		while(rs.next()) {
-			list += "'" + rs.getString("img_height") + "'" + ",";
+			img_list += "'" + rs.getString("img_height") + "'" + ",";
 			name_list += "'" + rs.getString("result_desc") + "'" + ",";
 		}
 		
-		list.substring(0, list.length() - 1);
+		img_list.substring(0, img_list.length() - 1);
 		name_list.substring(0, name_list.length() - 1);
 		
 	} catch (Exception e) {
@@ -176,9 +201,14 @@
   var right_text = document.querySelector("#right_text");
   var result_text = document.querySelector("#result_text");
 
-  var animalList = [ <%=list %> ];
-  var animalListOrigin = [ <%=list %> ];
+  var list = [];
+  var imgList = [ <%=img_list %> ];
   var nameList = [ <%=name_list %> ];
+  
+  for(let index = 0; index < imgList.length - 1; index++) {
+	  list[index] = index + 1;
+  }
+
   
   var i = 0;
 
@@ -195,12 +225,12 @@
   }
 
   function chooseOne(){
-	console.log(animalList[i]);
-    left_select.style.backgroundImage = "url('" + "images/동물/" + animalList[i] +  "')";
-    right_select.style.backgroundImage = "url('" + "images/동물/" + animalList[i+1] +  "')";
+	console.log(list[i]);
+    left_select.style.backgroundImage = "url('" + "images/<%=game_dir%>/" + imgList[list[i]] +  "')";
+    right_select.style.backgroundImage = "url('" + "images//<%=game_dir%>/" + imgList[list[i+1]] +  "')";
 
-    left_text.innerText = "#" + nameList[i];
-    right_text.innerText = "#" + nameList[i+1];
+    left_text.innerText = "#" + nameList[list[i]];
+    right_text.innerText = "#" + nameList[list[i+1]];
 
     i += 1;
   }
@@ -214,50 +244,50 @@
   }
 
   function initRound() {
-    if(animalList.length == 1) {
-      document.querySelector("#result_select").style.backgroundImage = "url('" + "images/동물/" + animalList[0] +  "')";
+    if(list.length == 1) {
+      document.querySelector("#result_select").style.backgroundImage = "url('" + "images//<%=game_dir%>/" + imgList[list[0]] +  "')";
 
       battleRound.innerText = "최종 선택";
       document.querySelector(".result_selection").style.display = "block";
       result_text.style.display = "block";
-      result_text.innerText = "#" + nameList[animalListOrigin.indexOf(animalList[0])];
+      result_text.innerText = "#" + nameList[list[0]];
 
       document.querySelector("#left").style.display = "none";
       document.querySelector("#right").style.display = "none";
       document.querySelector("#verse").style.display = "none";
 
-      setCookie("result01", animalListOrigin.indexOf(animalList[0]) + 1 , 1);
+      setCookie("result0<%=game_no %>", list[0], 1);
       
-      setTimeout(function() {location.href = "index.jsp";} , 2000);
+      setTimeout(function() {location.href = "gameProcess.jsp?game_no=<%=game_no %>&result0<%=game_no %>=" + list[0] ;} , 2000);
       return;
     }
 
-    if(animalList.length == 2) { document.querySelector("#battleRound").innerText = "결승전"; }
-    else document.querySelector("#battleRound").innerText = animalList.length +"강";
+    if(list.length == 2) { document.querySelector("#battleRound").innerText = "결승전"; }
+    else document.querySelector("#battleRound").innerText = list.length +"강";
 
     i = 0;
-    shuffle(animalList);
+    shuffle(list);
     chooseOne();
 
     return;
   }
 
-  shuffle(animalList); 
+  shuffle(list); 
   chooseOne();
 
   // 0, 2, 4, 6, 8, ...
   left_select.addEventListener('click', function(){
-    if(i >= animalList.length) {
+    if(i >= list.length) {
       initRound();
       return;
     }
 
-    animalList.splice(i, 1);
+    list.splice(i, 1);
     
-    console.log(animalList);
+    console.log(list);
     console.log(i);
 
-    if(i < animalList.length - 1) chooseOne();
+    if(i < list.length - 1) chooseOne();
     else {
       initRound();
     }
@@ -265,17 +295,17 @@
 
   // 1, 3, 5, 7, 9 ...
   right_select.addEventListener('click', function(){
-    if(i >= animalList.length) {
+    if(i >= list.length) {
       initRound();
       return;
     }
 
-    animalList.splice(i-1, 1);
+    list.splice(i-1, 1);
 
-    console.log(animalList);
+    console.log(list);
     console.log(i);
 
-    if(i < animalList.length - 1) chooseOne();
+    if(i < list.length - 1) chooseOne();
     else {
       initRound();
     }

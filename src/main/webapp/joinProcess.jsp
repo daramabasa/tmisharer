@@ -16,7 +16,9 @@ String regidate = st.format(nowTime); //regidate는 현재 시간
 	
 	Connection conn = null;
 	String sql = "INSERT INTO member(id,passwd,name,profile,intro,regidate) VALUES(?,?,?,?,?,?)";
+	String sql2 = "INSERT INTO game(id, gamedate) VALUES(?,?)";
 	PreparedStatement pstmt = null;
+	PreparedStatement pstmt2 = null;
 	
 	
 
@@ -33,10 +35,15 @@ String regidate = st.format(nowTime); //regidate는 현재 시간
 		pstmt.setString(5, null);
 		pstmt.setString(6, regidate);
 		
-		int result= pstmt.executeUpdate();	
+		pstmt2 = conn.prepareStatement(sql2);
+		pstmt2.setString(1, request.getParameter("id"));
+		pstmt2.setString(2, regidate);
+		
+		int result = pstmt.executeUpdate();	
+		int result2 = pstmt2.executeUpdate();
 
 		
-		if(result != 0) {
+		if(result != 0 && result2 != 0) {
 			response.sendRedirect("loginPage.jsp");
 			return;
 			
