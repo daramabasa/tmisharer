@@ -152,12 +152,18 @@
             #goto { display: none; }
             /* #share { display: none; } */
 
+		.kbtn, .tbtn, .fbtn {
+			float: right;
+			border: none;
+			background-color: white;
+		}
+				
         footer h6 {
             margin-top: 100px;
             text-align: center;
             color: #ccc;
         }
-    </style>
+    </style>    
 </head>
 <body>
 <div class="container">
@@ -254,8 +260,55 @@
     </div>
     
     <button class="share" id="share">나의 프로필 공유하기</button><br>
-    <button class="share" id="quiz">문제지 제작하기</button>
-    <button class="share" id="goto" onclick="location.href='index.html'">나도 해보러 가기</button>
+    
+    <button class="tbtn" id="twitter-link-btn" onclick = "location.href='javascript:twitterShare()'">트위터</button>
+    
+    <button class="fbtn" id="facebook-link-btn" onclick = "location.href='javascript:onClickFacebook()'">페이스북</button>
+        
+    <button class="kbtn" id="kakao-link-btn" onclick = "location.href='javascript:kakaoShare()'">
+    	<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+    </button>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+	<script type="text/javascript">
+	  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+	  Kakao.init('30d28f999f4d3e5f02bae335e74c6613'); //카카오 개발자 js코드 입력
+	
+	  // SDK 초기화 여부를 판단합니다.
+	  console.log(Kakao.isInitialized());
+	
+	  function kakaoShare() {
+	    Kakao.Link.sendDefault({
+	      objectType: 'feed',
+	      content: {
+	        title: 'TMI 공유 사이트',
+	        description: '#좋아하는 사람 #장소 #동물 #활동 #싫어하는 사람',
+	        imageUrl:
+	            'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+	          link: {
+	            mobileWebUrl: '사이트 주소',
+	            webUrl: '사이트 주소',
+	          },
+	        },
+	        social: {
+	          //likeCount: 100, 좋아요수 (하트 모양)
+	          //commentCount: 200, 댓글수 (말풍선 모양)
+	          sharedCount: 845, // 공유횟수 (공유 모양)
+	        },
+	        buttons: [
+	          {
+	            title: '사이트로 이동하기',
+	            link: {
+	              mobileWebUrl: '사이트 주소',
+	              webUrl: '사이트 주소',
+	            },
+	          },	          
+	        ],
+	      })
+	    }
+	  </script>
+	  <button class="share" id="quiz">문제지 제작하기</button>
+	  <button class="share" id="goto" onclick="location.href='index.html'">나도 해보러 가기</button>
 </div>
 
 <footer><h6>Copyright. 2022. 서혜원, 임소연, 이세원. All rights reserved.</h6></footer>
@@ -288,6 +341,7 @@
     });
 
     let share = document.querySelector("#share");
+    let shareButton = document.querySelector("#shareButton");
     let quiz = document.querySelector("#quiz");
 
     function inithref(url) {
@@ -300,6 +354,29 @@
 
         return inittext;
     }
+    
+    shareButton.addEventListener("click", async () => { //프로필 공유
+    	  try {
+    	    await navigator.share({
+    	      title: "내 프로필 공유",
+    	      text: "나의 프로필을 공유해보세요",
+    	      url: "http://localhost:8088/TeamProject03/html%ED%8C%8C%EC%9D%BC%EB%93%A4/index.html",
+    	    });
+    	    console.log("공유 성공");
+    	  } catch (e) {
+    	    console.log("공유 실패");
+    	  }
+    	});
+         
+    function twitterShare() { //트위터 공유
+        var sendText = "TMI 공유 사이트";
+        var sendUrl = "http://localhost:8088/TeamProject03/html%ED%8C%8C%EC%9D%BC%EB%93%A4/index.html"; // 공유할 URL
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    }
+    
+    function onClickFacebook() { //페이스북 공유
+    	window.open('http://www.facebook.com/sharer.php?u=http://localhost:8088/TeamProject03/html%ED%8C%8C%EC%9D%BC%EB%93%A4/index.html')
+    }        
     
     share.addEventListener('click', function() {
         let copy = document.createElement('textarea');
@@ -354,6 +431,7 @@
         dislikeGame.style.backgroundColor = result05;
         dislikeGame.children[0].innerText = "#" + result05.toUpperCase().charAt(0) + result05.slice(1);
     }
+    
     
 </script>
 </html>
