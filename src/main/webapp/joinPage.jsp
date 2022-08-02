@@ -172,7 +172,7 @@ span {
   </div>
 
   <footer><h6>Copyright. 2022. 서혜원, 임소연, 이세원. All rights reserved.</h6></footer>
-  <script src="joinscript.js?ver=19"></script>
+  <script src="js/joinscript.js?ver=19"></script>
 </body>
 
 </html>

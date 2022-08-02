@@ -258,23 +258,23 @@
     let dislikeGame = document.querySelector("#dislikeGame");
     
     likeGame.addEventListener('click', function(){
-        location.href="game01ListPage.jsp?id=<%=friendId %>";
+        location.href="gameListPage.jsp?id=<%=friendId %>&game_no=1";
     });
     
     placeGame.addEventListener('click', function(){
-        location.href="game02ListPage.jsp?id=<%=friendId %>";
+        location.href="gameListPage.jsp?id=<%=friendId %>&game_no=2";
     });
     
     animalGame.addEventListener('click', function(){
-        location.href="game03ListPage.jsp?id=<%=friendId %>";
+        location.href="gameListPage.jsp?id=<%=friendId %>&game_no=3";
     });
     
     activeGame.addEventListener('click', function(){
-        location.href="game04ListPage.jsp?id=<%=friendId %>";
+        location.href="gameListPage.jsp?id=<%=friendId %>&game_no=4";
     });
     
     dislikeGame.addEventListener('click', function(){
-        location.href="game05ListPage.jsp?id=<%=friendId %>";
+        location.href="gameListPage.jsp?id=<%=friendId %>&game_no=5";
     });
 
     var getCookie = function(name) {

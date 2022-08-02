@@ -1,0 +1,5 @@
+/* 어비폰트 - 웹폰트 설정영역 */
+@font-face {font-family: 'UhBeeDongKyung';src: url('UhBeeDongKyung.eot');}
+@font-face {font-family: 'UhBeeDongKyung';src: url('UhBeeDongKyung.woff') format('woff');}
+article { font-family: "UhBeeDongKyung", serif;}
+textarea  {font-family: "UhBeeDongKyung", serif; }
