@@ -64,8 +64,6 @@
       text-align: center;
     }
       .icon {
-        width: 90px; height: 90px;
-        display: inline-block;
         background-color: #ddd;
       }
   footer h6 {
@@ -94,18 +92,18 @@
 	    <div class="iconsection">
 	      <div class="icon" id="naverIdLogin"></div>
 	      <div class="icon">
-	      	<ul>
-				<li onclick="kakaoLogin();">
+<!-- 	      	<ul> -->
+				<div onclick="kakaoLogin();">
 			      <a href="javascript:void(0)">
 			         <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" />
 			      </a>
-				</li>
+				</div><!-- 
 				<li onclick="kakaoLogout();">
 			      <a href="javascript:void(0)">
 			          <span>카카오 로그아웃</span>
 			      </a>
 				</li>
-			</ul>
+			</ul> -->
 	      </div>
 	      <div class="icon"></div>
 	    </div>

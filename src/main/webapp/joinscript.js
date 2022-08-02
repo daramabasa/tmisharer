@@ -1,45 +1,30 @@
-let openWin;
+var openWin;
 function chkID() {
-	console.log("진행은 됨");
   if(document.getElementById("id").value == null || document.getElementById("id").value == undefined || document.getElementById("id").value == "") { 
     document.getElementById("id").focus();
   } else {
     openWin = window.open("chkDuplicateID.jsp?id=" + document.getElementById("id").value, "아이디 중복 체크", "width=400px, height=250px, scrollbars=no, toolbar=no, resizeable=no, menubar=no, location=no");
   }
-}
-
-function chkForm(){
-
-  if(!document.querySelector("#chk").checked) {
-    return false;
-  }
-
-  if(document.querySelector("#passwd").value != document.querySelector("#passwdConfirm").value)
-  {
-    document.querySelector("#chkConfirm").innerText = "비밀번호가 서로 다릅니다. 다시 확인해주세요.";
-    document.querySelector("#passwdConfirm").focus();
-    return false;
-  } else {
-    document.querySelector("#chkConfirm").innerText = "비밀번호를 사용할 수 있습니다.";
-  }
-
-  return true;
+  
+  openWin.addEventListener('beforeunload', debounce(function () {
+		checkId();
+	}));
 }
 
 function checkMessage() {
   if(document.querySelector("#chk").checked){
     document.querySelector("#chk").checked = false;
     document.querySelector("#duplicationChk").disabled = false;
-    document.querySelector("#chkResult").innerText = "아이디 중복 확인을 진행해주세요.";
+    chkDupliEl.innerText = "아이디 중복 확인을 진행해주세요.\n";
   }
 }
-
-
 
 
 let idEl = document.querySelector("#id");
 let passwdEl = document.querySelector("#passwd");
 let passwdConfirmEl = document.querySelector("#passwdConfirm");
+let chkDupliEl =  document.getElementById("chkResult");
+let nameEl = document.querySelector("#name");
 
 let form = document.querySelector("#signup");
 
@@ -47,21 +32,48 @@ let form = document.querySelector("#signup");
 const checkId = () => {
 
     let valid = false;
-
-    const min = 4,
-        max = 15;
+	showError(idEl, '');
+    
+    const min = 4;
+    const max = 15;
     const id = idEl.value.trim();
-
+	
+	console.log("isRequired(id) " + isRequired(id));
+	console.log("isBetween(id.length, min, max) " + isBetween(id.length, min, max));
+	console.log("isIdValid(id) " + isIdValid(id));
+	console.log("document.querySelector('#chk').checked == true " + (document.querySelector("#chk").checked == true));
+	console.log("document.querySelector('#duplicationChk').disabled == false " + (document.querySelector("#duplicationChk").disabled == false));
+	
     if (!isRequired(id)) {
+	
         showError(idEl, '아이디를 입력해주세요.');
+        
     } else if (!isBetween(id.length, min, max)) {
-        showError(idEl, `아이디는 최소 ${min}~${max}자로 구성하실 수 있습니다.`)
+	
+		console.log("id.length" + id.length);
+		console.log("isBetween(id.length, min, max)" + isBetween(id.length, min, max));
+        showError(idEl, `아이디는 최소 ${min}~${max}자로 구성하실 수 있습니다.`);
+        
     } else if (!isIdValid(id)) {
-        showError(idEl, '아이디는 영문자+숫자 조합으로만 구성하실 수 있습니다. ')
-    } else {
+	
+        showError(idEl, '아이디는 영문자+숫자 조합으로만 구성하실 수 있습니다. ');
+        
+    } else if(!document.querySelector("#chk").checked == true) {
+		console.log("document.querySelector('#chk').checked");
+		showError(idEl, '');
+    	chkDupliEl.innerHTML= "아이디 중복 확인을 진행해주세요.\n";
+    	
+	} else if(document.querySelector("#duplicationChk").disabled == false) {
+		console.log("document.querySelector('#duplicationChk').disabled");
+		showError(idEl, '');
+		chkDupliEl.innerHTML= "이미 사용 중인 아이디입니다.";
+		
+	} else {
+		console.log("id OK");
         showSuccess(idEl);
         valid = true;
     }
+    
     return valid;
 };
 
@@ -101,13 +113,43 @@ const checkPasswdConfirm = () => {
     return valid;
 };
 
+const checkNickname = () => {
+	let valid = false;
+	const min = 1, max = 21;
+	const nameLimit = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	
+	const name = nameEl.value.trim();
+	
+	let totalLength = 0;
+	for(let i = 0; i < name.length; i++) {
+		let currentText = name[i];
+		console.log(name[i]);
+		if(nameLimit.test(currentText)) {
+			totalLength += 3;
+		} else {
+			totalLength++;	
+		}
+	}
+	
+	if(!isRequired(name)) {
+		showError(nameEl, '닉네임을 입력해주세요.');
+	} else if(!isBetween(totalLength, min, max)) {
+		showError(nameEl, '닉네임은 최소 1글자부터 최대 한글 7글자, 영어 21글자로 구성하실 수 있습니다.');
+	} else {
+		showSuccess(nameEl);
+		valid = true;
+	}
+	
+	return valid;
+}
+
 const isIdValid = (id) => {
     const re =  /^[A-Za-z0-9]+$/;
     return re.test(id);
    
 };
 
-const isRequired = value => value === '' ? false : true;
+const isRequired = value => (value == '' || value == null) ? false : true;
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
 
 
@@ -146,13 +188,14 @@ form.addEventListener('submit', function (e) {
     // validate forms
     let isIdValid = checkId(),
         isPasswdValid = checkPasswd(),
-        isPasswdConfirmValid = checkPasswdConfirm();
+        isPasswdConfirmValid = checkPasswdConfirm(),
+        isNameValid = checkNickname();
     
-	console.log(isIdValid + ", " + isPasswdValid + ", " + isPasswdConfirmValid);
+	console.log(isIdValid + ", " + isPasswdValid + ", " + isPasswdConfirmValid + ", " + isNameValid);
 
     let isFormValid = isIdValid &&
         isPasswdValid &&
-        isPasswdConfirmValid;
+        isPasswdConfirmValid && isNameValid;
 
 	console.log(isFormValid);
 	
@@ -163,7 +206,7 @@ form.addEventListener('submit', function (e) {
 });
 
 
-const debounce = (fn, delay = 500) => {
+const debounce = (fn, delay = 250) => {
     let timeoutId;
     return (...args) => {
 		console.log("debounce RUN");
@@ -186,9 +229,13 @@ form.addEventListener('input', debounce(function (e) {
             break;
         case 'passwd':
             checkPasswd();
+            checkPasswdConfirm();
             break;
         case 'passwdConfirm':
             checkPasswdConfirm();
             break;
+        case 'name':
+        	checkNickname();
+        	break;
     }
 }));

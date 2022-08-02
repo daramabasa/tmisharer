@@ -30,27 +30,29 @@
 	Cookie cookies[] = request.getCookies();
 	int cookieList[] = new int[5];
 	
-	for(int i = 0; i < cookies.length; i++) {
-		Cookie c = cookies[i];
-		switch (c.getName()) {
-			case "result01":
-				cookieList[0] = Integer.parseInt(c.getValue());
-				break;
-			case "result02":
-				cookieList[1] = Integer.parseInt(c.getValue());
-				break;
-			case "result03":
-				cookieList[2] = Integer.parseInt(c.getValue());
-				break;
-			case "result04":
-				cookieList[3] = Integer.parseInt(c.getValue());
-				break;
-			case "result05":
-				cookieList[4] = Integer.parseInt(c.getValue());
-				break;
-				
-			default:
-				continue;
+	if(cookies != null) {
+		for(int i = 0; i < cookies.length; i++) {
+			Cookie c = cookies[i];
+			switch (c.getName()) {
+				case "result01":
+					cookieList[0] = Integer.parseInt(c.getValue());
+					break;
+				case "result02":
+					cookieList[1] = Integer.parseInt(c.getValue());
+					break;
+				case "result03":
+					cookieList[2] = Integer.parseInt(c.getValue());
+					break;
+				case "result04":
+					cookieList[3] = Integer.parseInt(c.getValue());
+					break;
+				case "result05":
+					cookieList[4] = Integer.parseInt(c.getValue());
+					break;
+					
+				default:
+					continue;
+			}
 		}
 	}
 	

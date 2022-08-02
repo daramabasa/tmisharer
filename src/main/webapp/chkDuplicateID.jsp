@@ -6,7 +6,6 @@
 	String sql="SELECT * FROM member WHERE id=?";
 	PreparedStatement pstmt = null;
 	ResultSet rs=null;
-	String resultText="";
 	Boolean result=false;
 	
 	try{
@@ -19,10 +18,8 @@
 		rs=pstmt.executeQuery();
 		
 		if(rs.next()){
-			resultText="이미 사용 중인 아이디입니다.";
 			result=false;
 		} else {
-			resultText="사용 가능한 아이디입니다.";
 			result=true;
 		}
 	} catch(Exception e){
@@ -53,12 +50,12 @@ function useID(){
 		{
 		opener.document.querySelector("#chk").checked=true;
 		opener.document.querySelector("#duplicationChk").disabled=true;
-		opener.document.querySelector("#chkResult").innerText="사용 가능한 아이디입니다.";
+		opener.document.querySelector("#chkResult").innerHTML= "사용 가능한 아이디입니다.";
 		
 		}else{
 			opener.document.querySelector("#chk").checked=true;
 			opener.document.querySelector("#duplicationChk").disabled=false;
-			opener.document.querySelector("#chkResult").innerText="이미 사용 중인 아이디입니다.";
+			opener.document.querySelector("#chkResult").innerHTML= "이미 사용 중인 아이디입니다.";
 		}
 	self.close();
 }

@@ -28,7 +28,7 @@
       width: 400px; height: 100px;
       --background-color: #ddd;
       margin: 0 auto;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
       header > h1 { line-height: 100px; }
 
@@ -39,7 +39,7 @@
     }
       section input {
           width: 450px; height: 70px;
-          margin-bottom: 15px;
+          margin-bottom: 5px;
           border-radius: 10px;
           border: none;
           background-color: #D8D8D8;
@@ -68,6 +68,7 @@
           box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
         }
     h6 {
+    	margin-top: 100px;
         text-align: center;
         color: #ccc;
     }
@@ -77,13 +78,16 @@
     --warning-color: #ffc107;
 }
 
+.form-field {
+	margin-bottom: 15px;
+}
+
 .form-field label {
     display: block;
     color: #777;
 }
 
 .form-field input {
-    border: solid 2px #f0f0f0;
     display: block;
 }
 
@@ -91,20 +95,40 @@
     outline: none;
 }
 
-.form-field.error input {
-    border-color: var(--error-color);
+.form-field.error input:not(#duplicationChk) {
+    border: 1px solid var(--error-color);
 }
 
-.form-field.success input {
-    border-color: var(--success-color);
+.form-field.success input:not(#duplicationChk) {
+    border: 1px solid var(--success-color);
 }
 
+.form-field.error small, .form-field.error span {
+    color: var(--error-color);
+}
+
+.form-field.success small, .form-field.success span {
+    color: var(--success-color);
+}
 
 .form-field small {
-    color: var(--error-color);
+	clear: both;
+	display: inline-block;
     margin-bottom: 5px;
+    
+    font-size: 13px;
 }
-  </style>
+
+span {
+	clear: both;
+	display: block;
+    margin: 0 0 5px 0;
+    
+    color: var(--error-color);
+    font-size: 13px;
+}
+
+</style>
 </head>
 <body>
 
@@ -116,36 +140,39 @@
     <section>
       <form id="signup" class="form" action="joinProcess.jsp" method="POST" onsubmit="return chkForm();">
 	      <div class="form-field">
-	        <input type="text" name="id" id="id" placeholder="아이디" required onkeydown="checkMessage()">
-	        <input type="hidden" name="chk" id="chk">
-	        <small></small>
-	            </div>
+	          <input type="text" name="id" id="id" placeholder="아이디" required onkeydown="checkMessage()">
+	          <input type="hidden" name="chk" id="chk">
 	        
-	        <input type="button" value="중복 확인" onclick="chkID();" id="duplicationChk">
-	        <h6 id="chkResult">아이디 중복 확인을 진행해주세요.</h6>
+	          <input type="button" value="중복&#10;확인" onclick="chkID();" id="duplicationChk">
+	          
+	          <span id="chkResult">아이디 중복 확인을 진행해주세요.</span>
+	          <small></small>
+	      </div>
 	        
-	        <div class="form-field">
-	        <input type="password" name="passwd" id="passwd" placeholder="비밀번호" required>
-	        <small></small>
-	            </div>
+	      <div class="form-field">
+		      <input type="password" name="passwd" id="passwd" placeholder="비밀번호" required>
+		      <small></small>
+	      </div>
 	            
-	         <div class="form-field">    
-	        <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="비밀번호 확인" required>
-	        <h6 id="chkConfirm"></h6>
-	        <small></small>
-	            </div>
+	      <div class="form-field">    
+		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="비밀번호 확인" required>
+	           <small></small>
+	      </div>
+	       
+	      <div class="form-field">
+		      <input type="text" name="name" id="name" placeholder="닉네임" pattern="^[a-zA-Z가-힣]*$" required title="영어 21자, 한글 7자만 가능" >
+		      <small></small>
+	      </div>
 	        
-	        <input type="text" name="name" id="name" placeholder="닉네임" pattern="^[a-zA-Z가-힣]*$" required title="영어 21자, 한글 7자만 가능" >
-	        
-	        <div class="form-field">
-	        	<input type="submit" value="회원가입" class="btn">
-	        </div>
+	      <div class="form-field">
+	           <input type="submit" value="회원가입" class="btn">
+	      </div>
       </form>
     </section>
   </div>
 
   <footer><h6>Copyright. 2022. 서혜원, 임소연, 이세원. All rights reserved.</h6></footer>
-  <script src="joinscript.js?ver=3"></script>
+  <script src="joinscript.js?ver=19"></script>
 </body>
 
 </html>
