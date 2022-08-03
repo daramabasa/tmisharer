@@ -1,3 +1,4 @@
+<%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@page import="java.text.SimpleDateFormat, java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,6 +13,7 @@
 	int game_no = Integer.parseInt(request.getParameter("game_no"));
 	int result_no = Integer.parseInt(request.getParameter("result0" + game_no));
 	
+	
 	if(session_id != null) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -25,6 +27,8 @@
 			pstmt.setInt(1, result_no);
 			pstmt.setString(2, gamedate);
 			pstmt.setString(3, session_id);
+			
+			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

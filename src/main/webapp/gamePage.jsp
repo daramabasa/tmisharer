@@ -256,7 +256,9 @@
 
       setCookie("result0<%=game_no %>", list[0], 1);
       
-      setTimeout(function() {location.href = "gameProcess.jsp?game_no=<%=game_no %>&result0<%=game_no %>=" + list[0] ;} , 2000);
+      console.log(<%=game_no %>);
+      console.log(list[0]);
+      setTimeout(function() {location.href = "gameProcess.jsp?game_no=<%=game_no %>&result0<%=game_no %>=" + list[0];} , 2000);
       return;
     }
 

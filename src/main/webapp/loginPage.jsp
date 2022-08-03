@@ -63,9 +63,7 @@
       margin-top: 20px;
       text-align: center;
     }
-      .icon {
-        background-color: #ddd;
-      }
+    
   footer h6 {
         margin-top: 100px;
         text-align: center;
