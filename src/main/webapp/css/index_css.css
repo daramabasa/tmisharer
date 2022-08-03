@@ -191,15 +191,10 @@ body { background-color: #eee; }
 		button:hover, .button:hover {
 		  border-color: #cdd;
 		}
-		
-		.copy-link {
-		  padding-left: 30px;
-		  padding-right: 30px;
-		}
-		
+				
 		.share-dialog {
-		  position: absolute;
-		  top: 50%;
+		  position: relative;
+		  top: -17%;
 		  left: 50%;
 		  transform: translate(-50%, -50%);
 		}

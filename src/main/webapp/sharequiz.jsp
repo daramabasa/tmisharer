@@ -53,9 +53,6 @@
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
 		
-		System.out.println("db연결에 성공했습니다.");
-		
-		
 		for(int i = 0; i < sqls.length; i++) {
 			pstmt = conn.prepareStatement(sqls[i]);
 			if(games[i] == 0) continue;

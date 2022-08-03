@@ -26,7 +26,6 @@
 			pstmt.setString(2, gamedate);
 			pstmt.setString(3, session_id);
 			
-			System.out.println("업데이트: " + pstmt.executeUpdate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -19,8 +19,6 @@ String regidate = st.format(nowTime); //regidate는 현재 시간
 	String sql2 = "INSERT INTO game(id, gamedate) VALUES(?,?)";
 	PreparedStatement pstmt = null;
 	PreparedStatement pstmt2 = null;
-	
-	System.out.println("joinProcess.jsp");
 
 	try {
 		Context init = new InitialContext();
@@ -41,8 +39,6 @@ String regidate = st.format(nowTime); //regidate는 현재 시간
 		
 		int result = pstmt.executeUpdate();	
 		int result2 = pstmt2.executeUpdate();
-		System.out.println("result: " + result + ", result2: " + result2);
-
 		
 		if(result != 0 && result2 != 0) {
 			response.sendRedirect("loginPage.jsp");
