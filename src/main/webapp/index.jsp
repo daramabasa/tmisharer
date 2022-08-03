@@ -64,8 +64,6 @@
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
 		
-		System.out.println("db연결에 성공했습니다.");
-
 		pstmt = conn.prepareStatement(sql1);
 		
 		if(shareLink) {
@@ -110,16 +108,13 @@
 				pstmt = conn.prepareStatement("SELECT img_width, result_desc FROM src WHERE game_no=? AND result_no=?");
 				pstmt.setInt(1, i+1);
 				pstmt.setInt(2, cookieList[i]);
-				System.out.println("cookieList[" + i + "]: " + cookieList[i]);
 				
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
 					selectList[i] = rs.getString(1);
-					System.out.println("selectList[" + i + "]: " + selectList[i]);
 					
 					descList[i] = rs.getString(2);
-					System.out.println("descList[" + i + "]: " + descList[i]);
 				}
 				
 			}
@@ -144,7 +139,7 @@
 <head>
     <meta charset="UTF-8">
 	<title>프로필 화면</title>
-	<link rel="stylesheet" href="css/index_css.css">
+	<link rel="stylesheet" href="css/index_css.css?ver=1">
 </head>
 <body>
 <div class="container">
@@ -301,7 +296,8 @@
     <% } %>
     
     <div class="share-dialog">
-	  <header>
+      <header>
+   		<h3 class="dialog-title">나의 프로필 공유하기</h3>	  
 	    <button class="close-button"><svg><use href="#close"></use></svg></button>
 	  </header>
 	  
@@ -334,9 +330,10 @@
 	  
 	<div class="link">
 	    <div class="pen-url"></div>
-	    <button class="copy-link">Copy Link</button>
+	    <button type="button" onclick="clip(); return false;">Copy Link</button>
 	  </div>
-	</div>
+	</div>	
+		
 	
 	<svg class="hidden">
 	  <defs>
@@ -411,15 +408,23 @@
     }
     
  // 웹 쉐어
-    const shareButton = document.querySelector('.share');
+    const shareButton = document.querySelector('#share');
+    const quizButton = document.querySelector('#quiz');
+    
     const shareDialog = document.querySelector('.share-dialog');
     const closeButton = document.querySelector('.close-button');
 
     shareButton.addEventListener('click', event => {
+     let link = inithref(window.document.location.href);
+     if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+    	 link += "index.jsp";
+     } else {
+    	 link += "index.jsp?id=" + "<%=session_id%>";
+     }
       if (navigator.share) { 
        navigator.share({
           title: '나의 프로필 공유하기',
-          url: ''
+          url: link
         }).then(() => {
           console.log('공유 성공');
         })
@@ -429,7 +434,39 @@
         }
     });
     
-    share.addEventListener('click', function() {
+    closeButton.addEventListener('click', event => {
+        shareDialog.classList.remove('is-open');
+      });
+    
+    quizButton.addEventListener('click', event => {
+    	let link = inithref(window.document.location.href) + "sharequiz.jsp?id=" + "<%=session_id %>";
+        if (navigator.share) { 
+         navigator.share({
+            title: '나의 프로필 공유하기',
+            url: link
+          }).then(() => {
+            console.log('공유 성공');
+          })
+          .catch(console.error);
+          } else {
+              shareDialog.classList.add('is-open');
+          }
+      });
+    
+    
+    //URL 복사
+    function clip(){
+    	var url = '';
+    	var textarea = document.createElement("textarea");
+    	document.body.appendChild(textarea);
+    	url = window.document.location.href;
+    	textarea.value = url;
+    	textarea.select();
+    	document.execCommand("copy");
+    	document.body.removeChild(textarea);
+    }
+    
+    <%-- share.addEventListener('click', function() {
         let copy = document.createElement('textarea');
         copy.value = inithref(window.document.location.href);
         
@@ -454,7 +491,7 @@
 	        document.execCommand("copy");
 	        document.body.removeChild(copy);
 	    });
-    }
+    } --%>
 
     var getCookie = function(name) {
         var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      

@@ -50,9 +50,6 @@
 		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		conn = ds.getConnection();
 		
-		System.out.println("db연결에 성공했습니다.");
-		
-		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, game_no);
 		rs = pstmt.executeQuery();
