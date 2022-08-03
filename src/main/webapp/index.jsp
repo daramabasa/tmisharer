@@ -118,10 +118,6 @@
 				
 				if(rs.next()) {
 					selectList[i] = rs.getString(1);
-<<<<<<< HEAD
-=======
-					
->>>>>>> 8c1510186d3bd02539cde46151352e135ebfca22
 					descList[i] = rs.getString(2);
 				}
 				
