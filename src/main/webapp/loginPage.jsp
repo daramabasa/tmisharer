@@ -64,7 +64,7 @@
       text-align: center;
     }
       .icon {
-        background-color: #ddd;
+        background-color: white;
       }
   footer h6 {
         margin-top: 100px;
