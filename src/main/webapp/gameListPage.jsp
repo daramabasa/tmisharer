@@ -14,28 +14,22 @@
 	switch(game_no) {
 		case 1 :
 			game_dir = "좋아하는 사람 유형";
-			game_title = "좋아하는 사람";
 			break;
 		case 2 :
 			game_dir = "장소";
-			game_title = "좋아하는 장소";
 			break;
 		case 3 : 
 			game_dir = "동물";
-			game_title = "좋아하는 동물";
 			break;
 		case 4 :
 			game_dir = "활동";
-			game_title = "좋아하는 활동";
 			break;
 		case 5 :
 			game_dir = "싫어하는 사람 유형";
-			game_title = "싫어하는 사람";
 			break;
 		
 		default :
 			game_dir = "동물";
-			game_title = "좋아하는 동물";
 			break;
 	};
 	
@@ -112,8 +106,6 @@ font-family: 'SEBANG Gothic Bold';
   header {
     width: 700px; height: 100px;
     margin: 0 auto;
-
-    background-color: #ddd;
   }
     header h1 { line-height: 100px; }
 
@@ -193,9 +185,7 @@ font-family: 'SEBANG Gothic Bold';
 <body>
   <div class="container">
     <header>
-	    <h1 id="title">
-	    	가장 <%=game_title %> 선택지들
-	    </h1>
+	    <h1 id="title"><img src="images/타이틀/선택지_<%=game_dir %>.png" width="100%"></h1>
     </header>
 
      <form name="list" action="sharequiz.jsp?id=<%=friendName %>" method="POST" onsubmit="return checkForm()">

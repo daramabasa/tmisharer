@@ -171,7 +171,7 @@ font-family: 'SEBANG Gothic Bold';
 </head>
 <body>
   <div class="container">
-    <header><img src="images/sample_question.png" alt="game_title" id="title"></h1></header>
+    <header><img src="images/타이틀/밸런스게임_<%=game_dir %>.png" alt="game_title" id="title"></h1></header>
     <nav id="battleRound">16강</nav>
     <section>
       <div class="selection" id="left">
