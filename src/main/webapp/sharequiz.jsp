@@ -92,6 +92,11 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="밸런스 게임을 진행하고 나의 TMI를 친구에게 공유해보세요.">
+  <meta property="og:title" content="TMI공유기">
+  <!-- <meta name="og:url" content="http://192.168.0.21:8080/TeamProject03/index.jsp"> -->
+  <meta property="og:image" content="https://via.placeholder.com/200x150">
+  <meta property="ogLdescription" content="<%=friendName %>님은 어떤 선택을 했을까요? 지금 맞춰보세요.">
   <title>문제지 화면</title>
 
   <style>

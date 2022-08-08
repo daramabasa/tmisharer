@@ -5,14 +5,18 @@
 
 	String session_id = (String) session.getAttribute("id");
 	String request_id = (String) request.getParameter("id");
+	boolean overwrite;
+	if(session.getAttribute("overwrite") != null) {
+		overwrite = true;
+	} else {
+		overwrite = false;
+	}
 	
 	System.out.println("request id: " + request_id);
 	System.out.println("session id: " + session_id);
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
-	PreparedStatement pstmt2 = null;
-	PreparedStatement pstmt3 = null;
 	ResultSet rs = null;
 	
 	// 게임 결과 보여주는 sql
@@ -86,16 +90,16 @@
 					pstmt.setInt(1, i);
 					pstmt.setInt(2, rs.getInt("result0"+i));
 					
-					pstmt2 = conn.prepareStatement(sql2 + " result0" + i + "=?");
-					pstmt2.setInt(1, rs.getInt("result0"+i));
-					
 					rs2 = pstmt.executeQuery();
 					if(rs2.next()) {
 						selectList[i-1] = rs2.getString(1);
 						descList[i-1] = rs2.getString(2);
 					}
 					
-					rs2 = pstmt2.executeQuery();
+					pstmt = conn.prepareStatement(sql2 + " result0" + i + "=?");
+					pstmt.setInt(1, rs.getInt("result0"+i));
+					
+					rs2 = pstmt.executeQuery();
 					if(rs2.next()) {
 						countList[i-1] = rs2.getInt(1);
 					}
@@ -120,10 +124,10 @@
 
 					ResultSet rs2 = null;
 					
-					pstmt2 = conn.prepareStatement(sql2 + " result0" + (i+1) + "=?");
-					pstmt2.setInt(1, cookieList[i]);
+					pstmt = conn.prepareStatement(sql2 + " result0" + (i+1) + "=?");
+					pstmt.setInt(1, cookieList[i]);
 					
-					rs2 = pstmt2.executeQuery();
+					rs2 = pstmt.executeQuery();
 					if(rs2.next()) {
 						countList[i] = rs2.getInt(1) + 1;
 					}
@@ -139,7 +143,6 @@
 		try {
 			if(rs != null) rs.close();
 			if(pstmt != null) pstmt.close();
-			if(pstmt2 != null) pstmt.close();
 			if(conn != null) conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -150,6 +153,12 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="밸런스 게임을 진행하고 나의 TMI를 친구에게 공유해보세요.">
+    <meta property="og:title" content="TMI공유기">
+    <!-- <meta name="og:url" content="http://192.168.0.21:8080/TeamProject03/index.jsp"> -->
+    <meta property="og:image" content="https://via.placeholder.com/200x150">
+    <meta property="ogLdescription" content="밸런스 게임을 진행하고 나의 TMI를 친구에게 공유해보세요.">
+    
 	<title>프로필 화면</title>
 	<link rel="stylesheet" href="css/index_css.css?ver=1">
 	<style>
@@ -240,11 +249,12 @@
     			%>
     				<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span>을(를) 가장 싫어한다고 답했습니다.</p> 
     			<%
-    		}
+    		} else {
     		
     		%>
     			<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span>을(를) 가장 좋아한다고 답했습니다.</p>
     		<%
+    		}
     	}
     %>
                
@@ -258,16 +268,16 @@
         		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
         		conn = ds.getConnection();
         		
-        		pstmt3 = conn.prepareStatement(sql3);
+        		pstmt = conn.prepareStatement(sql3);
         		if(shareLink) {
-        			pstmt3.setString(1, request_id);
+        			pstmt.setString(1, request_id);
         		}else if(login) {
-        			pstmt3.setString(1, session_id);
+        			pstmt.setString(1, session_id);
         		}
 
         		if(shareLink || login) {
         			
-	        		ResultSet rs2 = pstmt3.executeQuery();
+	        		ResultSet rs2 = pstmt.executeQuery();
 	        		
 	        		if(rs2 == null) {
 	        			%>
@@ -319,7 +329,6 @@
         		try {
 	        		if(rs != null) rs.close();
 	        		if(pstmt != null) pstmt.close();
-	        		if(pstmt3 != null) pstmt3.close();
 	        		if(conn != null) conn.close();
         		} catch (Exception e) {
         			e.printStackTrace();
@@ -576,38 +585,38 @@
     }
     
     --%>
-
-    var getCookie = function(name) {
-        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
-        return value? value[2] : null;  
-    };
-
-    let result01 = getCookie("result01");
-    let result02 = getCookie("result02");
-    let result03 = getCookie("result03");
-    let result04 = getCookie("result04");
-    let result05 = getCookie("result05");
-
-    if(result01 != null || "<%=selectList[0] %>" != "null") {
+    
+    if("<%=selectList[0] %>" != "null") {
    	    likeGame.style.backgroundImage = "url('" + "images/좋아하는 사람 유형/<%=selectList[0] %>" +  "')";
         likeGame.children[0].innerText = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
     }
-    if(result02 != null || "<%=selectList[1] %>" != "null") {
+    if("<%=selectList[1] %>" != "null") {
         placeGame.style.backgroundImage = "url('" + "images/장소/<%=selectList[1] %>" +  "')";
         placeGame.children[0].innerText = "<%=descList[1] %>" == "null" ? "#Example" : "#<%=descList[1] %>";
     }
-    if(result03 != null || "<%=selectList[2] %>" != "null") {
+    if("<%=selectList[2] %>" != "null") {
         animalGame.style.backgroundImage = "url('" + "images/동물/<%=selectList[2] %>" +  "')";
         animalGame.children[0].innerText = "<%=descList[2] %>" == "null" ? "#Example" : "#<%=descList[2] %>";
     }
-    if(result04 != null || "<%=selectList[3] %>" != "null") {
+    if("<%=selectList[3] %>" != "null") {
         activeGame.style.backgroundImage = "url('" + "images/활동/<%=selectList[3] %>" +  "')";
         activeGame.children[0].innerText = "<%=descList[3] %>" == "null" ? "#Example" : "#<%=descList[3] %>";
     }
-    if(result05 != null || "<%=selectList[4] %>" != "null") {
+    if("<%=selectList[4] %>" != "null") {
         dislikeGame.style.backgroundImage = "url('" + "images/싫어하는 사람 유형/<%=selectList[4] %>" +  "')";
         dislikeGame.children[0].innerText = "<%=descList[4] %>" == "null" ? "#Example" : "#<%=descList[4] %>";
     }
     
+   document.addEventListener("DOMContentLoaded", function(event) { 
+		if(<%=login %> && <%=!shareLink %>) {
+			if(<%=cookies != null %> && <%=!overwrite %>) {
+				if(confirm("로그인 전에 진행한 기록이 있습니다. 해당 기록으로 덮어쓰시겠습니까?")) {
+					location.href="dataOverwrite.jsp";
+				} else {
+					return;
+				}
+			}
+		}
+	});
 </script>
 </html>
