@@ -12,6 +12,10 @@
     font-family: 'SEBANG Gothic Regular';
     src: url('/TeamProject03/src/main/webapp/font/SEBANG-Gothic.woff') format('woff');
 }
+*{
+font-family: 'SEBANG Gothic Regular';
+font-weight:bold;
+}
 
     body {
       background-color: #eee;
@@ -53,14 +57,11 @@
         border: none;
 
         background-color: #D8D8D8;
-        font-family: 'SEBANG Gothic Regular';
-        font-weight:bold;
         color:white;
         
       }
       input::placeholder {
 		  color: white;
-		  font-family: 'SEBANG Gothic Regular';
 		}
       #id{
       color:white;
@@ -80,8 +81,6 @@
       a{
       text-decoration:none;
       color:black;
-      font-family: 'SEBANG Gothic Regular';
-      font-weight:bold;
       }
 
     .iconsection {

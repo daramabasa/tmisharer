@@ -9,6 +9,15 @@
 <title>회원가입</title>
 
 <style>
+@font-face {
+    font-family: 'SEBANG Gothic Regular';
+    src: url('/TeamProject03/src/main/webapp/font/SEBANG-Gothic.woff') format('woff');
+}
+*{
+font-family: 'SEBANG Gothic Regular';
+font-weight:bold;
+color:white;
+}
     body {
       background-color: #eee;
     }
@@ -46,6 +55,9 @@
 
           float: left;
       }
+       input::placeholder {
+		  color: white;
+		} 
         input#id {
           width: 370px;
           margin-right: 10px;
@@ -140,27 +152,27 @@ span {
     <section>
       <form id="signup" class="form" action="joinProcess.jsp" method="POST" onsubmit="return chkForm();">
 	      <div class="form-field">
-	          <input type="text" name="id" id="id" placeholder="아이디" required onkeydown="checkMessage()">
+	          <input type="text" name="id" id="id" placeholder="   아이디 입력" required onkeydown="checkMessage()">
 	          <input type="hidden" name="chk" id="chk">
 	        
-	          <input type="button" value="중복&#10;확인" onclick="chkID();" id="duplicationChk">
+	          <input type="button" value="중 복&#10;확 인" onclick="chkID();" id="duplicationChk">
 	          
 	          <span id="chkResult">아이디 중복 확인을 진행해주세요.</span>
 	          <small></small>
 	      </div>
 	        
 	      <div class="form-field">
-		      <input type="password" name="passwd" id="passwd" placeholder="비밀번호" required>
+		      <input type="password" name="passwd" id="passwd" placeholder="   비밀번호 입력" required>
 		      <small></small>
 	      </div>
 	            
 	      <div class="form-field">    
-		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="비밀번호 확인" required>
+		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="   비밀번호 확인" required>
 	           <small></small>
 	      </div>
 	       
 	      <div class="form-field">
-		      <input type="text" name="name" id="name" placeholder="닉네임" pattern="^[a-zA-Z가-힣]*$" required title="영어 21자, 한글 7자만 가능" >
+		      <input type="text" name="name" id="name" placeholder="   닉네임 입력" pattern="^[a-zA-Z가-힣]*$" required title="영어 21자, 한글 7자만 가능" >
 		      <small></small>
 	      </div>
 	        
