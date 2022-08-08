@@ -231,24 +231,24 @@
     </div>
     <div class="resultsection">
         <div class="game" id="likeGame">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 사람 유형</h4>
+            <h2>#가장 좋아하는<br>사람 유형은?</h2>
+            <h4><img src="images/plus.png" width="35px"></h4>
         </div>
         <div class="game" id="placeGame">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 장소</h4>
+            <h2>#가장 좋아하는<br>장소는?</h2>
+            <h4><img src="images/plus.png" width="35px"></h4>
         </div>
         <div class="game" id="animalGame">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 동물</h4>
+            <h2>#가장 좋아하는<br>동물은?</h2>
+            <h4><img src="images/plus.png" width="35px"></h4>
         </div>
         <div class="game" id="activeGame">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 활동</h4>
+            <h2>#가장 좋아하는<br>활동은?</h2>
+            <h4><img src="images/plus.png" width="35px"></h4>
         </div>
         <div class="game" id="dislikeGame">
-            <h2>#Example</h2>
-            <h4>#가장 싫어하는 사람 유형</h4>
+            <h2>#가장 싫어하는<br>사람 유형은?</h2>
+            <h4><img src="images/plus.png" width="35px"></h4>
         </div>
     </div>
     <div class="countsection">
@@ -556,23 +556,23 @@
 
     if("<%=selectList[0] %>" != "null") {
    	    likeGame.style.backgroundImage = "url('" + "images/좋아하는 사람 유형/<%=selectList[0] %>" +  "')";
-        likeGame.children[0].innerText = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
+        likeGame.children[0].innerHTML = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
     }
     if("<%=selectList[1] %>" != "null") {
         placeGame.style.backgroundImage = "url('" + "images/장소/<%=selectList[1] %>" +  "')";
-        placeGame.children[0].innerText = "<%=descList[1] %>" == "null" ? "#Example" : "#<%=descList[1] %>";
+        placeGame.children[0].innerHTML = "<%=descList[1] %>" == "null" ? "#Example" : "#<%=descList[1] %>";
     }
     if("<%=selectList[2] %>" != "null") {
         animalGame.style.backgroundImage = "url('" + "images/동물/<%=selectList[2] %>" +  "')";
-        animalGame.children[0].innerText = "<%=descList[2] %>" == "null" ? "#Example" : "#<%=descList[2] %>";
+        animalGame.children[0].innerHTML = "<%=descList[2] %>" == "null" ? "#Example" : "#<%=descList[2] %>";
     }
     if("<%=selectList[3] %>" != "null") {
         activeGame.style.backgroundImage = "url('" + "images/활동/<%=selectList[3] %>" +  "')";
-        activeGame.children[0].innerText = "<%=descList[3] %>" == "null" ? "#Example" : "#<%=descList[3] %>";
+        activeGame.children[0].innerHTML = "<%=descList[3] %>" == "null" ? "#Example" : "#<%=descList[3] %>";
     }
     if("<%=selectList[4] %>" != "null") {
         dislikeGame.style.backgroundImage = "url('" + "images/싫어하는 사람 유형/<%=selectList[4] %>" +  "')";
-        dislikeGame.children[0].innerText = "<%=descList[4] %>" == "null" ? "#Example" : "#<%=descList[4] %>";
+        dislikeGame.children[0].innerHTML = "<%=descList[4] %>" == "null" ? "#Example" : "#<%=descList[4] %>";
     }
     
    document.addEventListener("DOMContentLoaded", function(event) { 
