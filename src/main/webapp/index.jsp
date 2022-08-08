@@ -160,11 +160,11 @@
     <meta charset="UTF-8">
     <meta name="description" content="밸런스 게임을 진행하고 나의 TMI를 친구에게 공유해보세요.">
     <meta property="og:title" content="TMI공유기">
-    <!-- <meta name="og:url" content="http://192.168.0.21:8080/TeamProject03/index.jsp"> -->
-    <meta property="og:image" content="">
+<!--     <meta property="og:url" content="http://192.168.0.21:8080/TeamProject03/index.jsp"> -->
+    <meta property="og:image" content="images/title.png">
     
 	<title>프로필 화면</title>
-	<link rel="stylesheet" href="css/index_css.css?ver=1">
+	<link rel="stylesheet" href="css/index_css.css?ver=2">
 	<style>
 	@font-face {
     font-family: 'SEBANG Gothic Bold';
@@ -526,7 +526,6 @@ color:#FFFFFF;
   	  shareDialog.classList.remove('is-open');
   	});
     
-<<<<<<< HEAD
 /*    	document.addEventListener("mouseup", function(e) {
    		if(shareDialog.style.display != ("none")){
    			if(e.target.className != "share-dialog is-open") {
@@ -554,41 +553,6 @@ color:#FFFFFF;
        	    }
        	});
     }
-    	
-=======
-    quizButton.addEventListener('click', event => {
-    	let link = inithref(window.document.location.href);        
-       	 link += "sharequiz.jsp?id=" + "<%=session_id %>";
-    	  if (navigator.share) { 
-    	   navigator.share({
-    	      title: '다른 사람들과 공유해보세요',
-    	      url: link
-    	    }).then(() => {
-    	      console.log('성공');
-    	    })
-    	    .catch(console.error);
-    	    } else {
-    	        shareDialog.classList.add('is-open');
-    	    }
-    	});
-
-    	    	
-    	 //URL 복사
-        function clip(){
-        	let link = inithref(window.document.location.href);
-            if(<%=((request_id == null && session_id == null) ? true : false) %>) {
-           	 link += "index.jsp";
-            } else {
-           	 link += "index.jsp?id=" + "<%=session_id%>";
-            }
-        	var textarea = document.createElement("textarea");
-        	document.body.appendChild(textarea);
-        	url = window.document.location.href;
-        	textarea.value = link;
-        	textarea.select();
-        	document.execCommand("copy");
-        	document.body.removeChild(textarea);
-        }
     	 
       //페이스북 공유
         function shareFacebook() {
@@ -612,7 +576,6 @@ color:#FFFFFF;
     	    var linkText = "TMI공유 사이트";
     	    window.open("https://twitter.com/intent/tweet?text=" + linkText + "&url=" + link);
     	}
->>>>>>> origin/sewon
 
    	    	
    	 //URL 복사

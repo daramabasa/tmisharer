@@ -11,12 +11,23 @@
 <style>
 @font-face {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    font-family: 'SEBANG Gothic Regular';
+    src: url('font/SEBANG-Gothic.woff') format('woff');
+}
+*{
+	font-family: 'SEBANG Gothic Regular';
+	color:white;
+=======
+>>>>>>> 40f3762e738044c7550be3c208a1e268537babbc
     font-family: 'SEBANG Gothic Bold';
     src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
 }
 *{
 font-family: 'SEBANG Gothic Bold';
 color:white;
+<<<<<<< HEAD
 =======
     font-family: 'SEBANG Gothic Regular';
     src: url('font/SEBANG-Gothic.woff') format('woff');
@@ -25,6 +36,9 @@ color:white;
 	font-family: 'SEBANG Gothic Regular';
 	color:white;
 >>>>>>> cbab3a44967cc8efe3aa09ac1798755d4aa76ba2
+=======
+>>>>>>> origin/soyeon
+>>>>>>> 40f3762e738044c7550be3c208a1e268537babbc
 }
     body {
       background-color: #eee;
