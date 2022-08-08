@@ -554,6 +554,8 @@ color:#FFFFFF;
        	});
     }
     	 
+    	 
+    	 
       //페이스북 공유
         function shareFacebook() {
         	let link = inithref(window.document.location.href);
