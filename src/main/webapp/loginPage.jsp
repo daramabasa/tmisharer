@@ -8,6 +8,15 @@
 <title>로그인 페이지</title>
 
 <style>
+	@font-face {
+    font-family: 'SEBANG Gothic Regular';
+    src: url('/TeamProject03/src/main/webapp/font/SEBANG-Gothic.woff') format('woff');
+}
+*{
+font-family: 'SEBANG Gothic Regular';
+font-weight:bold;
+}
+
     body {
       background-color: #eee;
     }
@@ -48,6 +57,17 @@
         border: none;
 
         background-color: #D8D8D8;
+        color:white;
+        
+      }
+      input::placeholder {
+		  color: white;
+		}
+      #id{
+      color:white;
+      }
+      #passwd{
+      color:white;
       }
 
       input[type="submit"] {
@@ -57,6 +77,10 @@
 
       input[type="submit"]:active {
         box-shadow: none;
+      }
+      a{
+      text-decoration:none;
+      color:black;
       }
 
     .iconsection {
@@ -80,8 +104,8 @@
 	    
 	    <section>
 	      <form action="loginProcess.jsp" method="POST">
-	        <input type="text" name="id" id="id" placeholder="아이디" required="required">
-	        <input type="password" name="passwd" id="passwd" placeholder="비밀번호" required="required">
+	        <input type="text" name="id" id="id" placeholder="   아이디 입력" required="required">
+	        <input type="password" name="passwd" id="passwd" placeholder="   비밀번호 입력" required="required">
 	        <input type="submit" value="로그인">
 	      </form>
 	    </section>
