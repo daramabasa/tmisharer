@@ -79,6 +79,9 @@ color:white;
           margin-top: 35px;
           box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
         }
+        input[type="button"] {
+          line-height:17px;
+        }
     h6 {
     	margin-top: 100px;
         text-align: center;
