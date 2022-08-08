@@ -28,6 +28,8 @@ let nameEl = document.querySelector("#name");
 
 let form = document.querySelector("#signup");
 
+// input field 와 form을 선택하기 위해서 document.querySelector() method를 사용
+
 
 const checkId = () => {
 
@@ -150,12 +152,13 @@ const isIdValid = (id) => {
 };
 
 const isRequired = value => (value == '' || value == null) ? false : true;
+// input값이 비어있을때 isRequired() function 은 true 리턴
 const isBetween = (length, min, max) => length < min || length > max ? false : true;
-
+// length가 minimum과 maximum 조건에 충족하지 않을 때 isBetween() function은 flase리턴 
 
 
 const showError = (input, message) => {
-    // get the form-field element
+    // get the form-field element which is the <div> element that contains the form-field class
     const formField = input.parentElement;
     // add the error class
     formField.classList.remove('success');
@@ -181,8 +184,10 @@ const showSuccess = (input) => {
 
 
 form.addEventListener('submit', function (e) {
-    // prevent the form from submitting
+    
+    //addEventListener를 사용해서 submit 에 관한 event listener를 form 에 추가
     e.preventDefault();
+    // e.preventDefault() 를 불러줌으로써 한번 이미 submit이 된 상태에서 submit 버튼을 클릭했을 때 폼이 제출되지 않도록
 
 
     // validate forms
