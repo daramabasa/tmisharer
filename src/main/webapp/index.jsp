@@ -369,32 +369,19 @@
    		<h3 class="dialog-title">다른 사람들과 공유해보세요</h3>	  
 	    <button class="close-button"><svg><use href="#close"></use></svg></button>
 	  </header>
-	  
 	  <div class="targets">
-	    <a class="button">
+	    <a class="button" id="btnFacebook" href="javascript:shareFacebook();">
 	      <svg>
 	        <use href="#facebook"></use>
 	      </svg>
 	      <span>Facebook</span>
 	    </a>	    
-	    <a class="button">
+	    <a class="button" id="btnTwitter" href="javascript:shareTwitter();">
 	      <svg>
 	        <use href="#twitter"></use>
 	      </svg>
 	      <span>Twitter</span>
 	    </a>	    
-	    <a class="button">
-	      <svg>
-	        <use href="#linkedin"></use>
-	      </svg>
-	      <span>LinkedIn</span>
-	    </a>	    
-	    <a class="button">
-	      <svg>
-	        <use href="#email"></use>
-	      </svg>
-	      <span>Email</span>
-	    </a>
 	  </div>
 	  
 	  <div class="link">
@@ -507,6 +494,7 @@
   	  shareDialog.classList.remove('is-open');
   	});
     
+<<<<<<< HEAD
 /*    	document.addEventListener("mouseup", function(e) {
    		if(shareDialog.style.display != ("none")){
    			if(e.target.className != "share-dialog is-open") {
@@ -535,6 +523,64 @@
        	});
     }
     	
+=======
+    quizButton.addEventListener('click', event => {
+    	let link = inithref(window.document.location.href);        
+       	 link += "sharequiz.jsp?id=" + "<%=session_id %>";
+    	  if (navigator.share) { 
+    	   navigator.share({
+    	      title: '다른 사람들과 공유해보세요',
+    	      url: link
+    	    }).then(() => {
+    	      console.log('성공');
+    	    })
+    	    .catch(console.error);
+    	    } else {
+    	        shareDialog.classList.add('is-open');
+    	    }
+    	});
+
+    	    	
+    	 //URL 복사
+        function clip(){
+        	let link = inithref(window.document.location.href);
+            if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+           	 link += "index.jsp";
+            } else {
+           	 link += "index.jsp?id=" + "<%=session_id%>";
+            }
+        	var textarea = document.createElement("textarea");
+        	document.body.appendChild(textarea);
+        	url = window.document.location.href;
+        	textarea.value = link;
+        	textarea.select();
+        	document.execCommand("copy");
+        	document.body.removeChild(textarea);
+        }
+    	 
+      //페이스북 공유
+        function shareFacebook() {
+        	let link = inithref(window.document.location.href);
+            if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+           	 link += "index.jsp";
+            } else {
+           	 link += "index.jsp?id=" + "<%=session_id%>";
+            }
+    	    window.open("http://www.facebook.com/sharer/sharer.php?u=" + link);
+    	}
+        
+    	 //트위터 공유
+    	function shareTwitter() {
+    		let link = inithref(window.document.location.href);
+            if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+           	 link += "index.jsp";
+            } else {
+           	 link += "index.jsp?id=" + "<%=session_id%>";
+            }
+    	    var linkText = "TMI공유 사이트";
+    	    window.open("https://twitter.com/intent/tweet?text=" + linkText + "&url=" + link);
+    	}
+>>>>>>> origin/sewon
 
    	    	
    	 //URL 복사
