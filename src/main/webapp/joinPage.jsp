@@ -10,12 +10,21 @@
 
 <style>
 @font-face {
+<<<<<<< HEAD
     font-family: 'SEBANG Gothic Regular';
     src: url('font/SEBANG-Gothic.woff') format('woff');
 }
 *{
 	font-family: 'SEBANG Gothic Regular';
 	color:white;
+=======
+    font-family: 'SEBANG Gothic Bold';
+    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
+}
+*{
+font-family: 'SEBANG Gothic Bold';
+color:white;
+>>>>>>> origin/soyeon
 }
     body {
       background-color: #eee;

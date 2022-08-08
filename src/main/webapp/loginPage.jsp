@@ -8,12 +8,21 @@
 <title>로그인 페이지</title>
 
 <style>
+<<<<<<< HEAD
 	@font-face {
     font-family: 'SEBANG Gothic Regular';
     src: url('font/SEBANG-Gothic.woff') format('woff');
 }
 *{
 	font-family: 'SEBANG Gothic Regular';
+=======
+@font-face {
+    font-family: 'SEBANG Gothic Bold';
+    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
+}
+*{
+font-family: 'SEBANG Gothic Bold';
+>>>>>>> origin/soyeon
 }
 
     body {

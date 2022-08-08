@@ -166,6 +166,38 @@
 	<title>프로필 화면</title>
 	<link rel="stylesheet" href="css/index_css.css?ver=2">
 	<style>
+	@font-face {
+    font-family: 'SEBANG Gothic Bold';
+    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
+}
+	@font-face {
+    font-family: 'SEBANG Gothic Regular';
+    src: url('fonts/세방고딕/SEBANG-Gothic-Regular.woff') format('woff');
+}
+*{
+	font-family: 'SEBANG Gothic Bold';
+}
+.profileid{
+background-color:#FFFFFF;
+}
+.short{
+font-family: 'SEBANG Gothic Regular';
+background-color:#FFFFFF;
+color:#D8D8D8;
+}
+.game h4{
+font-family: 'SEBANG Gothic Regular';
+color:#FFFFFF;
+}
+#login{
+color:#FFFFFF;
+}
+#logout{
+color:#FFFFFF;
+}
+.share{
+color:#FFFFFF;
+}
 	<% if(session_id == null && request_id == null) { %>
 		.container{
             width: 850px; height: 1450px;
@@ -200,7 +232,7 @@
     
     
 	    .profile_img {
-		   background-color: #D8D8D8;
+		   background-color: #D8D8D8; 
 		   background-size: cover;
 	       background-repeat: no-repeat;
 	       background-position: center;
