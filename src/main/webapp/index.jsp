@@ -351,7 +351,7 @@
     
     <div class="share-dialog">
       <header>
-   		<h3 class="dialog-title">나의 프로필 공유하기</h3>	  
+   		<h3 class="dialog-title">다른 사람들과 공유해보세요</h3>	  
 	    <button class="close-button"><svg><use href="#close"></use></svg></button>
 	  </header>
 	  
@@ -461,12 +461,13 @@
         return inittext;
     }
     
- // 웹 쉐어
+    // 웹 쉐어
     const shareButton = document.querySelector('#share');
     const quizButton = document.querySelector('#quiz');
     
     const shareDialog = document.querySelector('.share-dialog');
     const closeButton = document.querySelector('.close-button');
+<<<<<<< HEAD
     
     if(shareButton != null) {
 	    shareButton.addEventListener('click', event => {
@@ -587,6 +588,98 @@
     --%>
     
     if("<%=selectList[0] %>" != "null") {
+=======
+
+    shareButton.addEventListener('click', event => {
+    	let link = inithref(window.document.location.href);
+        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+       	 link += "index.jsp";
+        } else {
+       	 link += "index.jsp?id=" + "<%=session_id%>";
+        }
+    	  if (navigator.share) { 
+    	   navigator.share({
+    	      title: '다른 사람들과 공유해보세요',
+    	      url: link
+    	    }).then(() => {
+    	      console.log('성공');
+    	    })
+    	    .catch(console.error);
+    	    } else {
+    	        shareDialog.classList.add('is-open');
+    	    }
+    	});
+    
+    closeButton.addEventListener('click', event => {
+  	  shareDialog.classList.remove('is-open');
+  	});
+    
+    quizButton.addEventListener('click', event => {
+    	let link = inithref(window.document.location.href);
+        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+       	 link += "index.jsp";
+        } else {
+       	 link += "sharequiz.jsp?id=" + "<%=session_id %>";
+        }
+    	  if (navigator.share) { 
+    	   navigator.share({
+    	      title: '다른 사람들과 공유해보세요',
+    	      url: link
+    	    }).then(() => {
+    	      console.log('성공');
+    	    })
+    	    .catch(console.error);
+    	    } else {
+    	        shareDialog.classList.add('is-open');
+    	    }
+    	});
+
+    	    	
+    	 //URL 복사
+        function clip(){
+        	let link = inithref(window.document.location.href);
+            if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+           	 link += "index.jsp";
+            } else {
+           	 link += "index.jsp?id=" + "<%=session_id%>";
+            }
+        	var textarea = document.createElement("textarea");
+        	document.body.appendChild(textarea);
+        	url = window.document.location.href;
+        	textarea.value = link;
+        	textarea.select();
+        	document.execCommand("copy");
+        	document.body.removeChild(textarea);
+        }
+    	 
+    <%--
+    if(quiz != null) {
+	    quiz.addEventListener('click', function() {
+	        let copy = document.createElement('textarea');
+	        copy.value = inithref(window.document.location.href);
+	        copy.value += "sharequiz.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
+	        document.body.appendChild(copy);
+	
+	        copy.select();
+	        document.execCommand("copy");
+	        document.body.removeChild(copy);
+	    });
+    }
+	--%>
+
+    var getCookie = function(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
+        return value? value[2] : null;  
+    };
+
+    let result01 = getCookie("result01");
+    let result02 = getCookie("result02");
+    let result03 = getCookie("result03");
+    let result04 = getCookie("result04");
+    let result05 = getCookie("result05");
+
+    if(result01 != null || "<%=selectList[0] %>" != "null") {
+>>>>>>> origin/sewon
    	    likeGame.style.backgroundImage = "url('" + "images/좋아하는 사람 유형/<%=selectList[0] %>" +  "')";
         likeGame.children[0].innerText = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
     }
