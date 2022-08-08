@@ -42,6 +42,7 @@
 		}
 	}
 	
+	session.setAttribute("overwrite", false);
 	response.sendRedirect("index.jsp");
 	return;
 

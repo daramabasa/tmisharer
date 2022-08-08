@@ -5,11 +5,10 @@
 
 	String session_id = (String) session.getAttribute("id");
 	String request_id = (String) request.getParameter("id");
-	boolean overwrite;
+	boolean overwrite = false;
 	if(session.getAttribute("overwrite") != null) {
-		overwrite = true;
-	} else {
-		overwrite = false;
+		overwrite = (boolean) session.getAttribute("overwrite");
+		System.out.println("overwrite: " + overwrite);
 	}
 	
 	System.out.println("request id: " + request_id);
@@ -33,6 +32,8 @@
 	int countList[] = new int[5];
 	String selectList[] = new String[5];
 	String descList[] = new String[5];
+	String profile_img = null;
+	String profile_short = null;
 	
 	Cookie cookies[] = request.getCookies();
 	int cookieList[] = new int[5];
@@ -83,6 +84,9 @@
 			rs = pstmt.executeQuery();
 	
 			if(rs.next()){
+				
+				if(rs.getString("profile") != null) profile_img = rs.getString("profile");
+				if(rs.getString("intro") != null) profile_short = rs.getString("intro"); 
 				
 				ResultSet rs2 = null;
 				for(int i = 1; i <= 5; i++) {
@@ -148,6 +152,7 @@
 			e.printStackTrace();
 		}
 	}
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -156,8 +161,7 @@
     <meta name="description" content="밸런스 게임을 진행하고 나의 TMI를 친구에게 공유해보세요.">
     <meta property="og:title" content="TMI공유기">
     <!-- <meta name="og:url" content="http://192.168.0.21:8080/TeamProject03/index.jsp"> -->
-    <meta property="og:image" content="https://via.placeholder.com/200x150">
-    <meta property="ogLdescription" content="밸런스 게임을 진행하고 나의 TMI를 친구에게 공유해보세요.">
+    <meta property="og:image" content="">
     
 	<title>프로필 화면</title>
 	<link rel="stylesheet" href="css/index_css.css?ver=1">
@@ -193,14 +197,25 @@
 	           background-color: white;
 	       }
     <% } %>
+    
+    
+	    .profile_img {
+		   background-color: #D8D8D8;
+		   background-size: cover;
+	       background-repeat: no-repeat;
+	       background-position: center;
+	       <%if(profile_img != null) { %>
+	           background-image: url("<%=profile_img %>");
+	       <% } %>
+	    }
+    
 	</style>
 </head>
 <body>
 <div class="container">
     <div class="profilesection">
         <div class="top">
-            <div class="profileimg">
-            </div>
+            <div class="profileimg" onclick="modify();"></div>
             <%if(session_id == null) { %>
             	<button class="btn" id="login" onclick="location.href='loginPage.jsp'">로그인</button>
             <%} else {  %>
@@ -210,8 +225,8 @@
         <div class="profileid">
             ID <%=(request_id != null) ? request_id : (session_id != null) ? session_id : "GUEST" %>
         </div>
-        <div class="short">
-            #한줄소개#ExampleShortDescriptionOfMine
+        <div class="short" onclick="modify();">
+            <%=(profile_short != null) ? "#" + profile_short : "#한줄소개#ExampleShortDescriptionOfMine" %>
         </div>
     </div>
     <div class="resultsection">
@@ -301,7 +316,7 @@
         			
 	        %>
 		        <div class="friend">
-		            <img src="https://via.placeholder.com/35x35" alt="">
+		            <img src="" alt="" width="35px" height="35px">
 		            <span class="friend_name"><%=rs2.getString("name") %>:</span> 
 		            <div class="guess">#<%=dbList[0] %></div>
 		            <div class="guess">#<%=dbList[1] %></div>
@@ -382,9 +397,9 @@
 	    </a>
 	  </div>
 	  
-	<div class="link">
+	  <div class="link">
 	    <div class="pen-url"></div>
-	    <button type="button" onclick="clip(); return false;">Copy Link</button>
+	    <button type="button" id="clipboard">Copy Link</button>
 	  </div>
 	</div>	
 		
@@ -446,10 +461,7 @@
     dislikeGame.addEventListener('click', function(){
     	if(<%=shareLink %> == false || (<%=session_id != null ? (session_id.equals(request_id)) : false %>)) location.href="gamePage.jsp?game_no=5";
     });
-
-    let share = document.querySelector("#share");
-    let quiz = document.querySelector("#quiz");
-
+    
     function inithref(url) {
         let url_array = url.split("/");
         let inittext = '';
@@ -467,129 +479,9 @@
     
     const shareDialog = document.querySelector('.share-dialog');
     const closeButton = document.querySelector('.close-button');
-<<<<<<< HEAD
     
-    if(shareButton != null) {
-	    shareButton.addEventListener('click', event => {
-	     let link = inithref(window.document.location.href);
-	 	 console.log(link);
-	     if(<%=((request_id == null && session_id == null) ? true : false) %>) {
-	    	 link += "index.jsp";
-	     } else {
-	    	 link += "index.jsp?id=" + "<%=session_id%>";
-	     }
-	      if (navigator.share) { 
-	       navigator.share({
-	          title: '나의 프로필 공유하기',
-	          url: link
-	        }).then(() => {
-	          console.log('공유 성공');
-	        })
-	        .catch(console.error);
-	        } else {
-	            shareDialog.classList.add('is-open');
-	        }
-	    });
-    }
+    const clipboard = document.querySelector("#clipboard");
     
-    closeButton.addEventListener('click', event => {
-        shareDialog.classList.remove('is-open');
-      });
-    
-    if(quizButton != null) {
-	    quizButton.addEventListener('click', event => {
-	    	let link = inithref(window.document.location.href) + "sharequiz.jsp?id=" + "<%=session_id %>";
-	    	console.log(link);
-	        if (navigator.share) { 
-	         navigator.share({
-	            title: '나의 문제지 공유하기',
-	            url: link
-	          }).then(() => {
-	            console.log('공유 성공');
-	          })
-	          .catch(console.error);
-	          } else {
-	              shareDialog.classList.add('is-open');
-	          }
-	      });
-    }
-    
-    
-    //URL 복사
-    function clip(){
-    	var url = '';
-    	var textarea = document.createElement("textarea");
-    	document.body.appendChild(textarea);
-    	url = window.document.location.href;
-    	textarea.value = url;
-    	textarea.select();
-    	document.execCommand("copy");
-    	document.body.removeChild(textarea);
-    }
-    
-    <%-- share.addEventListener('click', function() {
-        let copy = document.createElement('textarea');
-        copy.value = inithref(window.document.location.href);
-        
-       	if(<%=(request_id == null && session_id == null) ? true : false%>) {
-       		copy.value += "index.jsp";
-       	} else copy.value += "index.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
-        document.body.appendChild(copy);
-
-        copy.select();
-        document.execCommand("copy");
-        document.body.removeChild(copy);
-    });
-
-    if(quiz != null) {
-	    quiz.addEventListener('click', function() {
-	        let copy = document.createElement('textarea');
-	        copy.value = inithref(window.document.location.href);
-	        copy.value += "sharequiz.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
-	        document.body.appendChild(copy);
-	
-	        copy.select();
-	        document.execCommand("copy");
-	        document.body.removeChild(copy);
-	    });
-    }
-    	    if(shareButton != null) {
-	    shareButton.addEventListener('click', event => {
-	      if (navigator.share) { 
-	       navigator.share({
-	          title: '나의 프로필 공유하기',
-	          url: ''
-	        }).then(() => {
-	          console.log('공유 성공');
-	        })
-	        .catch(console.error);
-	        } else {
-	            shareDialog.classList.add('is-open');
-	        }
-	    });
-    }
-    
-    if(share != null) { 
-    	share.addEventListener('click', function() {
-	        let copy = document.createElement('textarea');
-	        copy.value = inithref(window.document.location.href);
-	        
-	       	if(<%=(request_id == null && session_id == null) ? true : false%>) {
-	       		copy.value += "index.jsp";
-	       	} else copy.value += "index.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
-	        document.body.appendChild(copy);
-	
-	        copy.select();
-	        document.execCommand("copy");
-	        document.body.removeChild(copy);
-	    });
-    }
-    
-    --%>
-    
-    if("<%=selectList[0] %>" != "null") {
-=======
-
     shareButton.addEventListener('click', event => {
     	let link = inithref(window.document.location.href);
         if(<%=((request_id == null && session_id == null) ? true : false) %>) {
@@ -607,6 +499,7 @@
     	    .catch(console.error);
     	    } else {
     	        shareDialog.classList.add('is-open');
+    	        clipboard.addEventListener("click", clip("index.jsp"));
     	    }
     	});
     
@@ -614,72 +507,54 @@
   	  shareDialog.classList.remove('is-open');
   	});
     
-    quizButton.addEventListener('click', event => {
-    	let link = inithref(window.document.location.href);
-        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
-       	 link += "index.jsp";
-        } else {
-       	 link += "sharequiz.jsp?id=" + "<%=session_id %>";
-        }
-    	  if (navigator.share) { 
-    	   navigator.share({
-    	      title: '다른 사람들과 공유해보세요',
-    	      url: link
-    	    }).then(() => {
-    	      console.log('성공');
-    	    })
-    	    .catch(console.error);
-    	    } else {
-    	        shareDialog.classList.add('is-open');
-    	    }
-    	});
-
-    	    	
-    	 //URL 복사
-        function clip(){
-        	let link = inithref(window.document.location.href);
-            if(<%=((request_id == null && session_id == null) ? true : false) %>) {
-           	 link += "index.jsp";
-            } else {
-           	 link += "index.jsp?id=" + "<%=session_id%>";
-            }
-        	var textarea = document.createElement("textarea");
-        	document.body.appendChild(textarea);
-        	url = window.document.location.href;
-        	textarea.value = link;
-        	textarea.select();
-        	document.execCommand("copy");
-        	document.body.removeChild(textarea);
-        }
-    	 
-    <%--
-    if(quiz != null) {
-	    quiz.addEventListener('click', function() {
-	        let copy = document.createElement('textarea');
-	        copy.value = inithref(window.document.location.href);
-	        copy.value += "sharequiz.jsp?id=" + "<%=session_id %>";  //id 값은 jsp 로 가져오기
-	        document.body.appendChild(copy);
-	
-	        copy.select();
-	        document.execCommand("copy");
-	        document.body.removeChild(copy);
-	    });
+/*    	document.addEventListener("mouseup", function(e) {
+   		if(shareDialog.style.display != ("none")){
+   			if(e.target.className != "share-dialog is-open") {
+   				console.log(e.target);
+				shareDialog.classList.remove('is-open');
+   			}
+   		}
+    }); */
+    
+    if(quizButton != null) {
+    	quizButton.addEventListener('click', event => {
+   		  let link = inithref(window.document.location.href);
+          link += "sharequiz.jsp?id=" + "<%=session_id %>";
+       	  if (navigator.share) { 
+       	   navigator.share({
+       	      title: '다른 사람들과 공유해보세요',
+       	      url: link
+       	    }).then(() => {
+       	      console.log('성공');
+       	    })
+       	    .catch(console.error);
+       	    } else {
+       	        shareDialog.classList.add('is-open');
+       	        clipboard.addEventListener("click", clip("sharequiz.jsp"));
+       	    }
+       	});
     }
-	--%>
+    	
 
-    var getCookie = function(name) {
-        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');      
-        return value? value[2] : null;  
-    };
+   	    	
+   	 //URL 복사
+     function clip(nextPage){
+     	let link = inithref(window.document.location.href);
+         if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+        	 link += nextPage;
+         } else {
+        	 link += nextPage + "?id=" + "<%=session_id%>";
+         }
+     	var textarea = document.createElement("textarea");
+     	document.body.appendChild(textarea);
+     	url = window.document.location.href;
+     	textarea.value = link;
+     	textarea.select();
+     	document.execCommand("copy");
+     	document.body.removeChild(textarea);
+     }
 
-    let result01 = getCookie("result01");
-    let result02 = getCookie("result02");
-    let result03 = getCookie("result03");
-    let result04 = getCookie("result04");
-    let result05 = getCookie("result05");
-
-    if(result01 != null || "<%=selectList[0] %>" != "null") {
->>>>>>> origin/sewon
+    if("<%=selectList[0] %>" != "null") {
    	    likeGame.style.backgroundImage = "url('" + "images/좋아하는 사람 유형/<%=selectList[0] %>" +  "')";
         likeGame.children[0].innerText = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
     }
@@ -711,5 +586,12 @@
 			}
 		}
 	});
+   
+   
+   function modify() {
+	   if(<%=login %>) {
+		   location.href="profileModify.jsp";
+	   }
+   }
 </script>
 </html>

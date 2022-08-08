@@ -27,6 +27,13 @@
 	         background-color: white;
 	     }
 	     
+	     #profile_image {
+	     	background-color: #D8D8D8;
+	     	background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+	     }
+	     
 	     #profile_short {
 	     	width: 400px; height: 40px;
 	     	padding: 0 20px;
@@ -61,10 +68,10 @@
 </head>
 <body>
 <div class="container">
-	<form class="profilesection" action="index.jsp" method="POST">
+	<form class="profilesection" action="modifyProcess.jsp" method="POST" enctype="multipart/form-data">
         <div class="top">
         	<input type="file" id="profile_img" name="profile_img" hidden>
-            <label for="profile_img"><div class="profileimg"></div></label>
+            <label for="profile_img"><div class="profileimg" id="profile_image"></div></label>
         </div>
         <div class="profileid">
             ID <%=session_id %>
@@ -79,8 +86,20 @@
 </div>
 </body>
 <script>
-	let profile_img = document.getElementById("profile_img").value;
+	let profile_img = document.getElementById("profile_img");
+	let profile_image = document.getElementById("profile_image");
 	
-	document.getElementsByClassName("profileimg")[0].style.background = url(profile_img);
+	profile_image.addEventListener('click',_=>profile_img.click());
+	
+	profile_img.addEventListener("change",_=>{
+	    let file = profile_img.files[0];
+	    let reader = new FileReader();
+	    reader.onload = function (){
+	       profile_image.style.backgroundImage = 'url("' +reader.result + '")';
+	    }
+	    reader.readAsDataURL(file);
+	});
+	
+	
 </script>
 </html>
