@@ -100,6 +100,13 @@
   <title>문제지 화면</title>
 
   <style>
+	 @font-face {
+	    font-family: 'SEBANG Gothic Bold';
+	    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
+	}
+	*{
+	font-family: 'SEBANG Gothic Bold';
+	}
     body { background-color: #eee; }
       .container{
           width: 850px; height: 850px;
