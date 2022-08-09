@@ -10,7 +10,7 @@
 
 	String realFolder = "";
 	String saveFolder = "/upload";
-	int maxSize = 5*1024*1024;
+	int maxSize = 15*1024*1024;
 	String encType = "UTF-8";
 
 	// 상대 경로 지정

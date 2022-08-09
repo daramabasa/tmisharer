@@ -473,26 +473,28 @@
     
     const clipboard = document.querySelector("#clipboard");
     
-    shareButton.addEventListener('click', event => {
-    	let link = inithref(window.document.location.href);
-        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
-       	 link += "index.jsp";
-        } else {
-       	 link += "index.jsp?id=" + "<%=session_id%>";
-        }
-    	  if (navigator.share) { 
-    	   navigator.share({
-    	      title: '다른 사람들과 공유해보세요',
-    	      url: link
-    	    }).then(() => {
-    	      console.log('성공');
-    	    })
-    	    .catch(console.error);
-    	    } else {
-    	        shareDialog.classList.add('is-open');
-    	        clipboard.addEventListener("click", clip("index.jsp"));
-    	    }
-    	});
+    if(shareButton != null) {
+    	shareButton.addEventListener('click', event => {
+	    	let link = inithref(window.document.location.href);
+	        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+	       	 link += "index.jsp";
+	        } else {
+	       	 link += "index.jsp?id=" + "<%=session_id%>";
+	        }
+	    	  if (navigator.share) { 
+	    	   navigator.share({
+	    	      title: '다른 사람들과 공유해보세요',
+	    	      url: link
+	    	    }).then(() => {
+	    	      console.log('성공');
+	    	    })
+	    	    .catch(console.error);
+	    	    } else {
+	    	        shareDialog.classList.add('is-open');
+	    	        clipboard.addEventListener("click", clip("index.jsp"));
+	    	    }
+	    });
+    }
     
     closeButton.addEventListener('click', event => {
   	  shareDialog.classList.remove('is-open');
