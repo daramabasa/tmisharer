@@ -5,11 +5,7 @@
 
 	String session_id = (String) session.getAttribute("id");
 	String request_id = (String) request.getParameter("id");
-	boolean overwrite = false;
-	if(session.getAttribute("overwrite") != null) {
-		overwrite = (boolean) session.getAttribute("overwrite");
-		System.out.println("overwrite: " + overwrite);
-	}
+	boolean overwrite = true;
 	
 	System.out.println("request id: " + request_id);
 	System.out.println("session id: " + session_id);
@@ -109,6 +105,10 @@
 					rs2 = pstmt.executeQuery();
 					if(rs2.next()) {
 						countList[i-1] = rs2.getInt(1);
+					}
+					
+					if(cookieList[i-1] != rs.getInt("result0"+i)){
+						if(cookieList[i-1] != 0) overwrite = false;
 					}
 				}
 				
@@ -596,20 +596,21 @@
     }
     
    document.addEventListener("DOMContentLoaded", function(event) { 
-		if(<%=login %> && <%=!shareLink %>) {
+		if(<%=login %> || <%=request_id == session_id %>) {
 			if(<%=cookies != null %> && <%=!overwrite %>) {
 				if(confirm("로그인 전에 진행한 기록이 있습니다. 해당 기록으로 덮어쓰시겠습니까?")) {
 					location.href="dataOverwrite.jsp";
 				} else {
 					return;
 				}
+				
 			}
 		}
 	});
    
    
    function modify() {
-	   if(<%=login %>) {
+	   if(<%=login %> || <%=request_id == session_id %>) {
 		   location.href="profileModify.jsp";
 	   }
    }
