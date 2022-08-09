@@ -130,16 +130,31 @@
       }
 
     header {
-      width: 500px; height: 100px;
+      width: 700px; height: 100px;
       
       margin: 0 auto;
       margin-bottom: 50px;
     }
       header h1 {
-      	font-size: 60px;
+      	<%if(friendName.length() > 10) {%>
+      		font-size: 35px;      
+	    <%} else { %>
+	    	font-size: 50px;
+	    <%}%>
+	    
       	line-height: 100px;
       	font-family: 'SEBANG Gothic Bold';
       }
+      	#friendName {
+      	<%if(friendName.length() > 7) {%>
+      		font-size: 35px;      
+	    <%} else { %>
+	    	font-size: 50px;
+	    <%}%>
+	    
+	      	line-height: 100px;
+	      	font-family: 'SEBANG Gothic Bold';
+      	}
 
     input {
       width: 450px; height: 70px;
@@ -211,7 +226,7 @@
 <body>
   <div class="container">
     <header>
-      <h1><%=friendName %>님의 선택은?</h1>
+      <h1><span id=friendName><%=friendName %></span>님의 선택은?</h1>
     </header>
 
     <form name="games" action="quizProcess.jsp" method="POST" onsubmit="return checkForm()">

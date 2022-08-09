@@ -118,8 +118,8 @@
 	    
 	    <section>
 	      <form action="loginProcess.jsp" method="POST">
-	        <input type="text" name="id" id="id" placeholder="   아이디 입력" required="required">
-	        <input type="password" name="passwd" id="passwd" placeholder="   비밀번호 입력" required="required">
+	        <input type="text" name="id" id="id" placeholder="아이디 입력" required="required">
+	        <input type="password" name="passwd" id="passwd" placeholder="비밀번호 입력" required="required">
 	        <input type="submit" value="로그인">
 	      </form>
 	    </section>

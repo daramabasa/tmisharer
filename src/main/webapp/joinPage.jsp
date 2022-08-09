@@ -172,9 +172,9 @@ span {
     </header>
 	
     <section>
-      <form id="signup" class="form" action="joinProcess.jsp" method="POST" onsubmit="return chkForm();">
+      <form id="signup" class="form" action="joinProcess.jsp" method="POST">
 	      <div class="form-field">
-	          <input type="text" name="id" id="id" placeholder="   아이디 입력" required onkeydown="checkMessage()">
+	          <input type="text" name="id" id="id" placeholder="아이디 입력" required onkeydown="checkMessage()">
 	          <input type="hidden" name="chk" id="chk">
 	        
 	          <input type="button" value="중 복&#10;확 인" onclick="chkID();" id="duplicationChk">
@@ -184,17 +184,17 @@ span {
 	      </div>
 	        
 	      <div class="form-field">
-		      <input type="password" name="passwd" id="passwd" placeholder="   비밀번호 입력" required>
+		      <input type="password" name="passwd" id="passwd" placeholder="비밀번호 입력" required>
 		      <small></small>
 	      </div>
 	            
 	      <div class="form-field">    
-		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="   비밀번호 확인" required>
+		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="비밀번호 확인" required>
 	           <small></small>
 	      </div>
 	       
 	      <div class="form-field">
-		      <input type="text" name="name" id="name" placeholder="   닉네임 입력" pattern="^[a-zA-Z가-힣]*$" required title="영어 21자, 한글 7자만 가능" >
+		      <input type="text" name="name" id="name" placeholder="닉네임 입력" >
 		      <small></small>
 	      </div>
 	        
