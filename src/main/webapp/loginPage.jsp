@@ -58,9 +58,14 @@
         width: 450px; height: 70px;
         margin: 5px 0;
 
-        border-radius: 10px;
+        border-radius: 20px;
         border: none;
+        
+        padding: 0 15px;
+        box-sizing: border-box;
 
+        font-size: 20px;
+        
         background-color: #D8D8D8;
         color:white;
         
@@ -78,14 +83,18 @@
       input[type="submit"] {
         margin-top: 20px;
         box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+        font-size: 30px;
       }
 
       input[type="submit"]:active {
         box-shadow: none;
       }
+      
       a{
-      text-decoration:none;
-      color:black;
+	      text-decoration:none;
+	      color: #1D1D1B;
+	      
+	      font-size: 20px;
       }
 
     .iconsection {
@@ -115,14 +124,14 @@
 	      </form>
 	    </section>
 	
-	    <a href="joinPage.jsp">회원가입</a>
+	    <a href="joinPage.jsp">회원 가입</a>
 	    <div class="iconsection">
 	      <div class="icon" id="naverIdLogin"></div>
 	      <div class="icon">
 <!-- 	      	<ul> -->
 				<div onclick="kakaoLogin();">
 			      <a href="javascript:void(0)">
-			         <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" />
+			         <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="230px"/>
 			      </a>
 				</div><!-- 
 				<li onclick="kakaoLogout();">
@@ -143,7 +152,7 @@
 	 const naverLogin = new naver.LoginWithNaverId({
 	   clientId: "6FiWl1aonR5NDzcaLGXy",
 	   callbackUrl: "http://localhost:8088/TMIpro/login.jsp",
-	   loginButton: {color: "green", type: 3, height: 40}
+	   loginButton: {color: "green", type: 3, height: 50}
 	  });
 	 
 	 naverLogin.init();

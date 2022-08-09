@@ -167,7 +167,7 @@
     <meta property="og:image" content="images/title.png">
     
 	<title>프로필 화면</title>
-	<link rel="stylesheet" href="css/index_css.css?ver=5">
+	<link rel="stylesheet" href="css/index_css.css?ver=6">
 	<style>
 	<% if(session_id == null && request_id == null) { %>
 		.container{
@@ -207,7 +207,7 @@
 	       background-repeat: no-repeat;
 	       background-position: center;
 	       <%if(profile_img != null) { %>
-	           background-image: url("<%=profile_img %>");
+	           background-image: url("upload/<%=profile_img %>");
 	       <% } else { %>
 	       	   background-image: url("images/defaultprofile/defaultprofile.png");
 	       <% } %>
@@ -236,23 +236,23 @@
     <div class="resultsection">
         <div class="game" id="likeGame">
             <h2>#가장 좋아하는<br>사람 유형은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="placeGame">
             <h2>#가장 좋아하는<br>장소는?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="animalGame">
             <h2>#가장 좋아하는<br>동물은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="activeGame">
             <h2>#가장 좋아하는<br>활동은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="dislikeGame">
             <h2>#가장 싫어하는<br>사람 유형은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
     </div>
     <div class="countsection">
@@ -320,7 +320,7 @@
         			
 	        %>
 		        <div class="friend">
-		            <img src="" alt="" width="35px" height="35px">
+		            <img src="images/defaultprofile/defaultprofile.png" alt="" width="35px" height="35px">
 		            <span class="friend_name"><%=rs2.getString("name") %>:</span> 
 		            <div class="guess">#<%=dbList[0] %></div>
 		            <div class="guess">#<%=dbList[1] %></div>

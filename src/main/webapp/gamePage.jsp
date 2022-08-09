@@ -76,9 +76,18 @@
 	   font-family: 'SEBANG Gothic Bold';
 	   src: url('fonts/sebang/SEBANG-Gothic-Bold.woff') format('woff');
 	}
+	@font-face {
+	    font-family: 'SEBANG Gothic Regular';
+	    src: url('fonts/sebang/SEBANG-Gothic.woff') format('woff');
+	}
+	@font-face {
+		font-family: 'Uhbee Dongkyong';
+		src: url('fonts/uhbee_web/UhBeeDongKyung.woff') format('woff');
+	}
 	
 	*{
-		font-family: 'SEBANG Gothic Bold';
+		font-family: 'SEBANG Gothic Regular';
+		color: #1D1D1B;
 	}
 	
     body {
@@ -137,9 +146,16 @@
         /* #left_select {
         } */
 
+		#battleRound {
+			font-family: 'SEBANG Gothic Bold';
+			font-size: 40px;
+		}
         #verse {
           display: inline-block;
-          margin: 0 50px;
+          margin: 0 25px;
+          
+          font-family: 'Uhbee Dongkyong';
+          font-size: 50px;
         }
           .result_selection {
             width: 700px; height: 500px;

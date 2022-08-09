@@ -1,7 +1,7 @@
 @charset "UTF-8";
-body { background-color: #eee; }
+	body { background-color: #eee; }
         
-       @font-face {
+    @font-face {
 	    font-family: 'SEBANG Gothic Bold';
 	    src: url('../fonts/sebang/SEBANG-Gothic-Bold.woff') format('woff');
 	}
@@ -11,8 +11,8 @@ body { background-color: #eee; }
 	    src: url('../fonts/sebang/SEBANG-Gothic.woff') format('woff');
 	}
 	
-	*{ font-family: 'SEBANG Gothic Regular'; }
-	 
+	*{ font-family: 'SEBANG Gothic Regular'; color: #1D1D1B; }
+		 
 	.short{ color:#D8D8D8; }
 	
 	.game h4{ color:#FFFFFF; }
@@ -43,27 +43,31 @@ body { background-color: #eee; }
                 .btn{
                     width: 100px; height: 40px;
 
-                    border-radius: 10px;
+                    border-radius: 20px;
                     border: none;
                     box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+                    
+                    color: white;
                     background-color: #D8D8D8;
 
                     position: absolute;
                     right: 10px; top: 15px;
 
+					font-family: 'SEBANG Gothic Bold';
+					font-size: 15px;
                     cursor: pointer;
                 } 
                     .btn:active { box-shadow: none; }
         
 
         .profileid{
-            width:300px; height:80px;  
+            width:300px; height: 50px;  
             
             margin: 0 auto;
             margin-top: 10px;
 
-            line-height: 80px;
-            font-size: 35px;
+            line-height: 50px;
+            font-size: 40px;
             
 			font-family: 'SEBANG Gothic Bold';
         }
@@ -103,7 +107,7 @@ body { background-color: #eee; }
             }
                 .game::before{
                     content: "";
-                    opacity: 0.5;
+                    opacity: 0.3;
 
                     position: absolute;
                     top: 0px; right: 0px; left: 0px; bottom: 0px;
@@ -130,7 +134,8 @@ body { background-color: #eee; }
         		display: flex;
         		flex-flow: row wrap;
         	}
-        		#friendtitle { font-family: 'SEBANG Gothic Bold'; }
+        		.friend > img { border-radius: 20px; }
+        		#friendtitle > h1 { font-family: 'SEBANG Gothic Regular'; font-size: 40px; }
         		.friend_name {
         			margin: 0 5px; 
 	        		font-size: 11px;
@@ -139,7 +144,7 @@ body { background-color: #eee; }
             .guess {
                 width: 125px; height: 35px;
                 border-radius: 35px;
-                margin: 0 1px;
+                margin: 0 3px;
 
                 display: inline-block;
 
@@ -155,10 +160,13 @@ body { background-color: #eee; }
             margin: 0 auto;
             margin-top: 10px;
 
-            border-radius: 10px;
+            border-radius: 20px;
             border: none;
             box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
 
+			font-size: 20px;
+			font-family: 'SEBANG Gothic Bold';
+			
             background-color: #D8D8D8;
             cursor: pointer;
         }
@@ -192,10 +200,14 @@ body { background-color: #eee; }
 		  display: inline-flex;
 		  align-items: center;
 		  justify-content: center;
+		  
 		  height: auto;
+		  
 		  padding-top: 8px;
 		  padding-bottom: 8px;
+		  
 		  color: #777;
+		  
 		  text-align: center;
 		  font-size: 14px;
 		  font-weight: 500;
@@ -204,8 +216,10 @@ body { background-color: #eee; }
 		  text-transform: capitalize;
 		  text-decoration: none;
 		  white-space: nowrap;
+		  
 		  border-radius: 4px;
 		  border: 1px solid #ddd;
+		  
 		  cursor: pointer;
 		}
 		

@@ -20,7 +20,7 @@
 }
 
 *{
-	font-family: 'SEBANG Gothic Bold';
+	font-family: 'SEBANG Gothic Regular';
 	color:white;
 }
     body {
@@ -54,11 +54,19 @@
       section input {
           width: 450px; height: 70px;
           margin-bottom: 5px;
-          border-radius: 10px;
+          
+          border-radius: 20px;
           border: none;
+          
+          padding: 0 15px;
+          box-sizing: border-box;
+          
           background-color: #D8D8D8;
 
           float: left;
+          
+          font-size: 20px;
+          font-family: 'SEBANG Gothic Bold';
       }
        input::placeholder {
 		  color: white;
@@ -71,11 +79,16 @@
       section input[type="button"] {
         width: 70px; height: 70px;
         display: inline-block;
-        border-radius: 10px;
+        
+        border-radius: 20px;
         border: none;
+        
         padding: 15px;
+        
         box-sizing: border-box;
         box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+        
+        font-size: 15px;
         background-color: #D8D8D8;
         cursor: pointer;
       }
@@ -83,6 +96,7 @@
         input[type="submit"] {
           margin-top: 35px;
           box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+          font-size: 30px;
         }
         input[type="button"] {
           line-height:17px;
