@@ -12,6 +12,13 @@
 	<link rel="stylesheet" href="css/index_css.css?ver=1">
 	
 	<style>
+		@font-face {
+	    font-family: 'SEBANG Gothic Bold';
+	    src: url('fonts/SEBANG-Gothic-Bold.woff') format('woff');
+	   }
+    	*{
+		font-family: 'SEBANG Gothic Bold';
+		}
 		.container{
 	         width: 850px; height: 900px;
 	
