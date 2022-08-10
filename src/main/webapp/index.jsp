@@ -5,11 +5,7 @@
 
 	String session_id = (String) session.getAttribute("id");
 	String request_id = (String) request.getParameter("id");
-	boolean overwrite = false;
-	if(session.getAttribute("overwrite") != null) {
-		overwrite = (boolean) session.getAttribute("overwrite");
-		System.out.println("overwrite: " + overwrite);
-	}
+	boolean overwrite = true;
 	
 	System.out.println("request id: " + request_id);
 	System.out.println("session id: " + session_id);
@@ -88,6 +84,9 @@
 				if(rs.getString("profile") != null) profile_img = rs.getString("profile");
 				if(rs.getString("intro") != null) profile_short = rs.getString("intro"); 
 				
+				System.out.println("profile_img: " + profile_img);
+				System.out.println("profile_short: " + profile_short);
+				
 				ResultSet rs2 = null;
 				for(int i = 1; i <= 5; i++) {
 					pstmt = conn.prepareStatement("SELECT img_width, result_desc FROM src WHERE game_no=? AND result_no=?");
@@ -106,6 +105,10 @@
 					rs2 = pstmt.executeQuery();
 					if(rs2.next()) {
 						countList[i-1] = rs2.getInt(1);
+					}
+					
+					if(cookieList[i-1] != rs.getInt("result0"+i)){
+						if(cookieList[i-1] != 0) overwrite = false;
 					}
 				}
 				
@@ -164,40 +167,8 @@
     <meta property="og:image" content="images/title.png">
     
 	<title>프로필 화면</title>
-	<link rel="stylesheet" href="css/index_css.css?ver=2">
+	<link rel="stylesheet" href="css/index_css.css?ver=6">
 	<style>
-	@font-face {
-    font-family: 'SEBANG Gothic Bold';
-    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
-}
-	@font-face {
-    font-family: 'SEBANG Gothic Regular';
-    src: url('fonts/세방고딕/SEBANG-Gothic-Regular.woff') format('woff');
-}
-*{
-	font-family: 'SEBANG Gothic Bold';
-}
-.profileid{
-background-color:#FFFFFF;
-}
-.short{
-font-family: 'SEBANG Gothic Regular';
-background-color:#FFFFFF;
-color:#D8D8D8;
-}
-.game h4{
-font-family: 'SEBANG Gothic Regular';
-color:#FFFFFF;
-}
-#login{
-color:#FFFFFF;
-}
-#logout{
-color:#FFFFFF;
-}
-.share{
-color:#FFFFFF;
-}
 	<% if(session_id == null && request_id == null) { %>
 		.container{
             width: 850px; height: 1450px;
@@ -230,14 +201,15 @@ color:#FFFFFF;
 	       }
     <% } %>
     
-    
-	    .profile_img {
+	    .profileimg {
 		   background-color: #D8D8D8; 
 		   background-size: cover;
 	       background-repeat: no-repeat;
 	       background-position: center;
 	       <%if(profile_img != null) { %>
-	           background-image: url("<%=profile_img %>");
+	           background-image: url("upload/<%=profile_img %>");
+	       <% } else { %>
+	       	   background-image: url("images/defaultprofile/defaultprofile.png");
 	       <% } %>
 	    }
     
@@ -258,29 +230,29 @@ color:#FFFFFF;
             ID <%=(request_id != null) ? request_id : (session_id != null) ? session_id : "GUEST" %>
         </div>
         <div class="short" onclick="modify();">
-            <%=(profile_short != null) ? "#" + profile_short : "#한줄소개#ExampleShortDescriptionOfMine" %>
+            <%=(profile_short != null) ? ("#" + profile_short) : "#한줄소개#ExampleShortDescriptionOfMine" %>
         </div>
     </div>
     <div class="resultsection">
         <div class="game" id="likeGame">
             <h2>#가장 좋아하는<br>사람 유형은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="placeGame">
             <h2>#가장 좋아하는<br>장소는?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="animalGame">
             <h2>#가장 좋아하는<br>동물은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="activeGame">
             <h2>#가장 좋아하는<br>활동은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         <div class="game" id="dislikeGame">
             <h2>#가장 싫어하는<br>사람 유형은?</h2>
-            <h4><img src="images/plus.png" width="35px"></h4>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
     </div>
     <div class="countsection">
@@ -294,12 +266,12 @@ color:#FFFFFF;
     		}
     		if(i == 4) {
     			%>
-    				<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span>을(를) 가장 싫어한다고 답했습니다.</p> 
+    				<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span> 을(를) 가장 싫어한다고 답했습니다.</p> 
     			<%
     		} else {
     		
     		%>
-    			<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span>을(를) 가장 좋아한다고 답했습니다.</p>
+    			<p class="countresult"><span class="count_highlight"><%=countList[i] %></span>명의 사람들이 <span class="count_highlight">#<%=descList[i] %></span> 을(를) 가장 좋아한다고 답했습니다.</p>
     		<%
     		}
     	}
@@ -348,7 +320,7 @@ color:#FFFFFF;
         			
 	        %>
 		        <div class="friend">
-		            <img src="" alt="" width="35px" height="35px">
+		            <img src="images/defaultprofile/defaultprofile.png" alt="" width="35px" height="35px">
 		            <span class="friend_name"><%=rs2.getString("name") %>:</span> 
 		            <div class="guess">#<%=dbList[0] %></div>
 		            <div class="guess">#<%=dbList[1] %></div>
@@ -501,26 +473,28 @@ color:#FFFFFF;
     
     const clipboard = document.querySelector("#clipboard");
     
-    shareButton.addEventListener('click', event => {
-    	let link = inithref(window.document.location.href);
-        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
-       	 link += "index.jsp";
-        } else {
-       	 link += "index.jsp?id=" + "<%=session_id%>";
-        }
-    	  if (navigator.share) { 
-    	   navigator.share({
-    	      title: '다른 사람들과 공유해보세요',
-    	      url: link
-    	    }).then(() => {
-    	      console.log('성공');
-    	    })
-    	    .catch(console.error);
-    	    } else {
-    	        shareDialog.classList.add('is-open');
-    	        clipboard.addEventListener("click", clip("index.jsp"));
-    	    }
-    	});
+    if(shareButton != null) {
+    	shareButton.addEventListener('click', event => {
+	    	let link = inithref(window.document.location.href);
+	        if(<%=((request_id == null && session_id == null) ? true : false) %>) {
+	       	 link += "index.jsp";
+	        } else {
+	       	 link += "index.jsp?id=" + "<%=session_id%>";
+	        }
+	    	  if (navigator.share) { 
+	    	   navigator.share({
+	    	      title: '다른 사람들과 공유해보세요',
+	    	      url: link
+	    	    }).then(() => {
+	    	      console.log('성공');
+	    	    })
+	    	    .catch(console.error);
+	    	    } else {
+	    	        shareDialog.classList.add('is-open');
+	    	        clipboard.addEventListener("click", clip("index.jsp"));
+	    	    }
+	    });
+    }
     
     closeButton.addEventListener('click', event => {
   	  shareDialog.classList.remove('is-open');
@@ -600,39 +574,45 @@ color:#FFFFFF;
     if("<%=selectList[0] %>" != "null") {
    	    likeGame.style.backgroundImage = "url('" + "images/좋아하는 사람 유형/<%=selectList[0] %>" +  "')";
         likeGame.children[0].innerHTML = "<%=descList[0] %>" == "null" ? "#Example" : "#<%=descList[0] %>";
+        likeGame.children[1].innerHTML = "#좋아하는 사람 유형";
     }
     if("<%=selectList[1] %>" != "null") {
         placeGame.style.backgroundImage = "url('" + "images/장소/<%=selectList[1] %>" +  "')";
         placeGame.children[0].innerHTML = "<%=descList[1] %>" == "null" ? "#Example" : "#<%=descList[1] %>";
+        placeGame.children[1].innerHTML = "#좋아하는 장소";
     }
     if("<%=selectList[2] %>" != "null") {
         animalGame.style.backgroundImage = "url('" + "images/동물/<%=selectList[2] %>" +  "')";
         animalGame.children[0].innerHTML = "<%=descList[2] %>" == "null" ? "#Example" : "#<%=descList[2] %>";
+        animalGame.children[1].innerHTML = "#좋아하는 동물";
     }
     if("<%=selectList[3] %>" != "null") {
         activeGame.style.backgroundImage = "url('" + "images/활동/<%=selectList[3] %>" +  "')";
         activeGame.children[0].innerHTML = "<%=descList[3] %>" == "null" ? "#Example" : "#<%=descList[3] %>";
+        activeGame.children[1].innerHTML = "#좋아하는 활동";
     }
     if("<%=selectList[4] %>" != "null") {
         dislikeGame.style.backgroundImage = "url('" + "images/싫어하는 사람 유형/<%=selectList[4] %>" +  "')";
         dislikeGame.children[0].innerHTML = "<%=descList[4] %>" == "null" ? "#Example" : "#<%=descList[4] %>";
+        dislikeGame.children[1].innerHTML = "#싫어하는 사람 유형";
     }
     
    document.addEventListener("DOMContentLoaded", function(event) { 
-		if(<%=login %> && <%=!shareLink %>) {
+		if(<%=login %> || <%=request_id == session_id %>) {
 			if(<%=cookies != null %> && <%=!overwrite %>) {
 				if(confirm("로그인 전에 진행한 기록이 있습니다. 해당 기록으로 덮어쓰시겠습니까?")) {
 					location.href="dataOverwrite.jsp";
 				} else {
 					return;
 				}
+				
 			}
 		}
 	});
    
    
    function modify() {
-	   if(<%=login %>) {
+	   if(<%=login %> || <%=request_id == session_id %>) {
 		   location.href="profileModify.jsp";
 	   }
    }

@@ -10,35 +10,18 @@
 
 <style>
 @font-face {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     font-family: 'SEBANG Gothic Regular';
-    src: url('font/SEBANG-Gothic.woff') format('woff');
+    src: url('fonts/sebang/SEBANG-Gothic.woff') format('woff');
 }
-*{
-	font-family: 'SEBANG Gothic Regular';
-	color:white;
-=======
->>>>>>> 40f3762e738044c7550be3c208a1e268537babbc
+
+@font-face {
     font-family: 'SEBANG Gothic Bold';
-    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
+    src: url('fonts/sebang/SEBANG-Gothic-Bold.woff') format('woff');
 }
-*{
-font-family: 'SEBANG Gothic Bold';
-color:white;
-<<<<<<< HEAD
-=======
-    font-family: 'SEBANG Gothic Regular';
-    src: url('font/SEBANG-Gothic.woff') format('woff');
-}
+
 *{
 	font-family: 'SEBANG Gothic Regular';
 	color:white;
->>>>>>> cbab3a44967cc8efe3aa09ac1798755d4aa76ba2
-=======
->>>>>>> origin/soyeon
->>>>>>> 40f3762e738044c7550be3c208a1e268537babbc
 }
     body {
       background-color: #eee;
@@ -71,11 +54,19 @@ color:white;
       section input {
           width: 450px; height: 70px;
           margin-bottom: 5px;
-          border-radius: 10px;
+          
+          border-radius: 20px;
           border: none;
+          
+          padding: 0 15px;
+          box-sizing: border-box;
+          
           background-color: #D8D8D8;
 
           float: left;
+          
+          font-size: 20px;
+          font-family: 'SEBANG Gothic Bold';
       }
        input::placeholder {
 		  color: white;
@@ -88,11 +79,16 @@ color:white;
       section input[type="button"] {
         width: 70px; height: 70px;
         display: inline-block;
-        border-radius: 10px;
+        
+        border-radius: 20px;
         border: none;
+        
         padding: 15px;
+        
         box-sizing: border-box;
         box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+        
+        font-size: 15px;
         background-color: #D8D8D8;
         cursor: pointer;
       }
@@ -100,6 +96,7 @@ color:white;
         input[type="submit"] {
           margin-top: 35px;
           box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+          font-size: 30px;
         }
         input[type="button"] {
           line-height:17px;
@@ -175,9 +172,9 @@ span {
     </header>
 	
     <section>
-      <form id="signup" class="form" action="joinProcess.jsp" method="POST" onsubmit="return chkForm();">
+      <form id="signup" class="form" action="joinProcess.jsp" method="POST">
 	      <div class="form-field">
-	          <input type="text" name="id" id="id" placeholder="   아이디 입력" required onkeydown="checkMessage()">
+	          <input type="text" name="id" id="id" placeholder="아이디 입력" required onkeydown="checkMessage()">
 	          <input type="hidden" name="chk" id="chk">
 	        
 	          <input type="button" value="중 복&#10;확 인" onclick="chkID();" id="duplicationChk">
@@ -187,17 +184,17 @@ span {
 	      </div>
 	        
 	      <div class="form-field">
-		      <input type="password" name="passwd" id="passwd" placeholder="   비밀번호 입력" required>
+		      <input type="password" name="passwd" id="passwd" placeholder="비밀번호 입력" required>
 		      <small></small>
 	      </div>
 	            
 	      <div class="form-field">    
-		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="   비밀번호 확인" required>
+		       <input type="password" name="passwdConfirm" id="passwdConfirm" placeholder="비밀번호 확인" required>
 	           <small></small>
 	      </div>
 	       
 	      <div class="form-field">
-		      <input type="text" name="name" id="name" placeholder="   닉네임 입력" pattern="^[a-zA-Z가-힣]*$" required title="영어 21자, 한글 7자만 가능" >
+		      <input type="text" name="name" id="name" placeholder="닉네임 입력" >
 		      <small></small>
 	      </div>
 	        

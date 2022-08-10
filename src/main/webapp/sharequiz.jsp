@@ -102,11 +102,17 @@
   <style>
 	 @font-face {
 	    font-family: 'SEBANG Gothic Bold';
-	    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
+	    src: url('fonts/sebang/SEBANG-Gothic-Bold.woff') format('woff');
 	}
+	@font-face {
+	    font-family: 'SEBANG Gothic Regular';
+	    src: url('fonts/sebang/SEBANG-Gothic.woff') format('woff');
+	}
+	
 	*{
-	font-family: 'SEBANG Gothic Bold';
+		font-family: 'SEBANG Gothic Regular';
 	}
+	
     body { background-color: #eee; }
       .container{
           width: 850px; height: 850px;
@@ -124,39 +130,46 @@
       }
 
     header {
-      width: 500px; height: 100px;
-      background-color: #ddd;
+      width: 700px; height: 100px;
+      
       margin: 0 auto;
       margin-bottom: 50px;
     }
-      header h1 { line-height: 100px; }
+      header h1 {
+      	<%if(friendName.length() > 10) {%>
+      		font-size: 35px;      
+	    <%} else { %>
+	    	font-size: 50px;
+	    <%}%>
+	    
+      	line-height: 100px;
+      	font-family: 'SEBANG Gothic Bold';
+      }
+      	#friendName {
+      	<%if(friendName.length() > 7) {%>
+      		font-size: 35px;      
+	    <%} else { %>
+	    	font-size: 50px;
+	    <%}%>
+	    
+	      	line-height: 100px;
+	      	font-family: 'SEBANG Gothic Bold';
+      	}
 
     input {
       width: 450px; height: 70px;
       margin: 5px 0;
 
-      border-radius: 10px;
+      border-radius: 20px;
       border: none;
 		
 	  text-align: center;
+	  font-size: 30px;
+	  font-family: 'SEBANG Gothic Bold';
 	  
 	  color: white;
       background-color: #D8D8D8;
     }
-    	input#name::placeholder {
-    		text-align: center;
-    		opacity: 1;
-    	}
-    	
-    	input#name::-webkit-input-placeholder {
-    		text-align: center;
-    		opacity: 1;
-    	} 
-    	
-    	input#name:-ms-input-placeholder {
-    		text-align: center;
-    		opacity: 1;
-    	}
 
     .sections{
         width: 100%;
@@ -185,7 +198,7 @@
         }
             .game::before{
                 content: "";
-                opacity: 0.5;
+                opacity: 0.3;
 
                 position: absolute;
                 top: 0px; right: 0px; left: 0px; bottom: 0px;
@@ -213,7 +226,7 @@
 <body>
   <div class="container">
     <header>
-      <h1><%=friendName %>님의 선택은?</h1>
+      <h1><span id=friendName><%=friendName %></span>님의 선택은?</h1>
     </header>
 
     <form name="games" action="quizProcess.jsp" method="POST" onsubmit="return checkForm()">
@@ -223,32 +236,32 @@
       <div class="sections">
         <input type="text" name="likeGame" hidden>
         <div class="game" id="likeGame" style="background-image: url('images/좋아하는 사람 유형/<%=guess[0] %>');">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 사람 유형</h4>
+            <h2>#가장 좋아하는<br>사람 유형은?</h2>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         
         <input type="text" name="placeGame" hidden>
         <div class="game" id="placeGame" style="background-image: url('images/장소/<%=guess[1] %>');">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 장소</h4>
+            <h2>#가장 좋아하는<br>장소는?</h2>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         
         <input type="text" name="animalGame" hidden>
         <div class="game" id="animalGame" style="background-image: url('images/동물/<%=guess[2] %>');">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 동물</h4>
+            <h2>#가장 좋아하는<br>동물은?</h2>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         
         <input type="text" name="activeGame" hidden>
         <div class="game" id="activeGame" style="background-image: url('images/활동/<%=guess[3] %>');">
-            <h2>#Example</h2>
-            <h4>#가장 좋아하는 활동</h4>
+            <h2>#가장 좋아하는<br>활동은?</h2>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
         
         <input type="text" name="dislikeGame" hidden>
         <div class="game" id="dislikeGame" style="background-image: url('images/싫어하는 사람 유형/<%=guess[4] %>');">
-            <h2>#Example</h2>
-            <h4>#가장 싫어하는 사람 유형</h4>
+            <h2>#가장 싫어하는<br>사람 유형은?</h2>
+            <h4><img src="images/plus.png" width="35px" style="margin-top: 10px"></h4>
         </div>
       </div>
 
@@ -294,22 +307,27 @@
     if(<%=games[0] %> != 0) {
     	games.likeGame.value = '<%=games[0] %>';
     	likeGame.firstElementChild.innerText = "#" + '<%=guess_text[0] %>';
+    	likeGame.children[1].innerHTML = "#좋아하는 사람 유형";
     }
     if(<%=games[1] %> != 0) {
     	games.placeGame.value = '<%=games[1] %>';
     	placeGame.firstElementChild.innerText = "#" + '<%=guess_text[1] %>';
+    	placeGame.children[1].innerHTML = "#좋아하는 장소";
     }
     if(<%=games[2] %> != 0) {
     	games.animalGame.value = '<%=games[2] %>';
     	animalGame.firstElementChild.innerText = "#" + '<%=guess_text[2] %>';
+    	animalGame.children[1].innerHTML = "#좋아하는 동물";
     }
     if(<%=games[3] %> != 0) {
     	games.activeGame.value = '<%=games[3] %>';
     	activeGame.firstElementChild.innerText = "#" + '<%=guess_text[3] %>';
+    	activeGame.children[1].innerHTML = "#좋아하는 활동";
     }
     if(<%=games[4] %> != 0) {
     	games.dislikeGame.value = '<%=games[4] %>';
     	dislikeGame.firstElementChild.innerText = "#" + '<%=guess_text[4] %>';
+    	dislikeGame.children[1].innerHTML = "#싫어하는 사람 유형";
     }
 
   function checkForm() {

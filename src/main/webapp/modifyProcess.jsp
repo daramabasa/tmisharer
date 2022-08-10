@@ -10,11 +10,15 @@
 
 	String realFolder = "";
 	String saveFolder = "/upload";
-	int maxSize = 5*1024*1024;
+	int maxSize = 15*1024*1024;
 	String encType = "UTF-8";
+
+	// 상대 경로 지정
+/* 	ServletContext context = request.getSession().getServletContext();
+	realFolder = context.getRealPath(saveFolder); */
 	
-	ServletContext context = request.getSession().getServletContext();
-	realFolder = context.getRealPath(saveFolder);
+	// 절대 경로 지정
+	realFolder = "C:/Java/jsp-workspace/TeamProject03/src/main/webapp/upload";
 	
 /* 	System.out.println("context의 경로: " + context.getContextPath());
 	System.out.println("context의 경로: " + context.getRealPath(saveFolder)); */

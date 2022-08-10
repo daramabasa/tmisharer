@@ -76,13 +76,21 @@
   <title>선택지 화면</title>
 
   <style>
-  @font-face {
-    font-family: 'SEBANG Gothic Bold';
-    src: url('fonts/세방고딕/SEBANG-Gothic-Bold.woff') format('woff');
-}
-*{
-font-family: 'SEBANG Gothic Bold';
-}
+  
+ 	@font-face {
+    	font-family: 'SEBANG Gothic Bold';
+    	src: url('fonts/sebang/SEBANG-Gothic-Bold.woff') format('woff');
+	}
+	
+	@font-face {
+	    font-family: 'SEBANG Gothic Regular';
+	    src: url('fonts/sebang/SEBANG-Gothic.woff') format('woff');
+	}
+	
+	*{
+		font-family: 'SEBANG Gothic Regular';
+	 }
+	
   body {
     background-color: #eee;
   }
@@ -167,10 +175,14 @@ font-family: 'SEBANG Gothic Bold';
       }
 
       input[type="submit"] {
-        border-radius: 10px;
+        border-radius: 20px;
         border: none;
         box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
       
+        font-family: 'SEBANG Gothic Bold';
+        font-size: 30px;
+        color:  white;
+        
         cursor: pointer;
       }
             input[type="submit"]:active { box-shadow: none; }

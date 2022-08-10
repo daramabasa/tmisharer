@@ -62,7 +62,6 @@
 		
 		if(pstmt.executeUpdate() > 0) {
 			System.out.println("처리 성공");
-			session.setAttribute("overwrite", true);
 			response.sendRedirect("index.jsp");
 			return;
 		}

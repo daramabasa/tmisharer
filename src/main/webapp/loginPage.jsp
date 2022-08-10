@@ -9,6 +9,7 @@
 
 <style>
 	@font-face {
+<<<<<<< HEAD
     font-family: 'SEBANG Gothic Regular';
     src: url('font/SEBANG-Gothic.woff') format('woff');
 }
@@ -31,6 +32,20 @@ font-family: 'SEBANG Gothic Bold';
 	font-family: 'SEBANG Gothic Regular';
 
 }
+=======
+	    font-family: 'SEBANG Gothic Regular';
+	    src: url('fonts/sebang/SEBANG-Gothic.woff') format('woff');
+	}
+	
+	@font-face {
+	    font-family: 'SEBANG Gothic Bold';
+	    src: url('fonts/sebang/SEBANG-Gothic-Bold.woff') format('woff');
+	}
+	
+	*{
+		font-family: 'SEBANG Gothic Bold';
+	}
+>>>>>>> 091bbf801b8501ddc5185f92205cee0c83f2cc1b
 
     body {
       background-color: #eee;
@@ -68,9 +83,14 @@ font-family: 'SEBANG Gothic Bold';
         width: 450px; height: 70px;
         margin: 5px 0;
 
-        border-radius: 10px;
+        border-radius: 20px;
         border: none;
+        
+        padding: 0 15px;
+        box-sizing: border-box;
 
+        font-size: 20px;
+        
         background-color: #D8D8D8;
         color:white;
         
@@ -88,14 +108,18 @@ font-family: 'SEBANG Gothic Bold';
       input[type="submit"] {
         margin-top: 20px;
         box-shadow: 0 5px 0px rgba(0, 0, 0, 0.3);
+        font-size: 30px;
       }
 
       input[type="submit"]:active {
         box-shadow: none;
       }
+      
       a{
-      text-decoration:none;
-      color:black;
+	      text-decoration:none;
+	      color: #1D1D1B;
+	      
+	      font-size: 20px;
       }
 
     .iconsection {
@@ -119,20 +143,20 @@ font-family: 'SEBANG Gothic Bold';
 	    
 	    <section>
 	      <form action="loginProcess.jsp" method="POST">
-	        <input type="text" name="id" id="id" placeholder="   아이디 입력" required="required">
-	        <input type="password" name="passwd" id="passwd" placeholder="   비밀번호 입력" required="required">
+	        <input type="text" name="id" id="id" placeholder="아이디 입력" required="required">
+	        <input type="password" name="passwd" id="passwd" placeholder="비밀번호 입력" required="required">
 	        <input type="submit" value="로그인">
 	      </form>
 	    </section>
 	
-	    <a href="joinPage.jsp">회원가입</a>
+	    <a href="joinPage.jsp">회원 가입</a>
 	    <div class="iconsection">
 	      <div class="icon" id="naverIdLogin"></div>
 	      <div class="icon">
 <!-- 	      	<ul> -->
 				<div onclick="kakaoLogin();">
 			      <a href="javascript:void(0)">
-			         <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" />
+			         <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="230px"/>
 			      </a>
 				</div><!-- 
 				<li onclick="kakaoLogout();">
@@ -153,7 +177,7 @@ font-family: 'SEBANG Gothic Bold';
 	 const naverLogin = new naver.LoginWithNaverId({
 	   clientId: "6FiWl1aonR5NDzcaLGXy",
 	   callbackUrl: "http://localhost:8088/TMIpro/login.jsp",
-	   loginButton: {color: "green", type: 3, height: 40}
+	   loginButton: {color: "green", type: 3, height: 50}
 	  });
 	 
 	 naverLogin.init();
