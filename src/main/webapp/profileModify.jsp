@@ -85,7 +85,7 @@
         </div>
         <div class="short">
 	        <input type="text" id="profile_short" name="profile_short" title="~~자까지 입력 가능합니다."
-	        			value="#한줄소개#ExampleShortDescriptionOfMine">
+	        			placeholder="#한줄소개#ExampleShortDescriptionOfMine">
         </div>
         <br>
     	<input type="submit" value="수정">
