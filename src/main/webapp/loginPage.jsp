@@ -176,7 +176,7 @@ font-family: 'SEBANG Gothic Bold';
 	 
 	 const naverLogin = new naver.LoginWithNaverId({
 	   clientId: "6FiWl1aonR5NDzcaLGXy",
-	   callbackUrl: "http://localhost:8088/TMIpro/login.jsp",
+	   callbackUrl: "http://localhost:8088/TeamProject03/loginPage.jsp",
 	   loginButton: {color: "green", type: 3, height: 50}
 	  });
 	 
@@ -212,7 +212,7 @@ font-family: 'SEBANG Gothic Bold';
 	   const logout=document.getElementById('btn_logout');
 	  		logout.addEventListener('click',(e)=>{
 		    	naverLogin.logout();
-				location.replace("http://localhost:8088/TMIpro/loginPage.jsp");
+				location.replace("http://localhost:8088/TeamProject03/loginPage.jsp");
 	   })
 	 }
 </script>
