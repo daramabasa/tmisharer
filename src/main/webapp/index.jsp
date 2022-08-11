@@ -202,7 +202,6 @@
     <% } %>
     
 	    .profileimg {
-		   background-color: #D8D8D8; 
 		   background-size: cover;
 	       background-repeat: no-repeat;
 	       background-position: center;
